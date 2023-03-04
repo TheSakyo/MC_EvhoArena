@@ -1,0 +1,55 @@
+name: EvhoArena
+version: latest
+api-version: 1.15
+author: TheSakyo
+description: Plugin Arena PvP du serveur Evhonia !
+main: fr.TheSakyo.EvhoArena.ArenaMain
+softdepend: [EvhoUtility]
+
+commands:
+   arenareload:
+     description: Commande pour recharger le plugin (EvhoArena)
+     
+   arenarl:
+     description: Commande alias de 'arenareload' (EvhoArena)
+
+
+   setlobby:
+     description: Commande pour définir le point de spawn lobby (EvhoArena)
+     
+   setgame:
+     description: Commande pour définir le point de spawn jeu (bleu et rouge) (EvhoArena)
+
+   setzonegame:
+     description: Commande pour définir la zone de jeu (EvhoArena)
+
+
+   unsetlobby:
+     description: Commande pour retirer le point de spawn lobby (EvhoArena)
+
+   unsetgame:
+     description: Commande pour retirer le point de spawn jeu (bleu et rouge) (EvhoArena)
+
+   unsetzonegame:
+     description: Commande pour retirer la zone de jeu (EvhoArena)
+
+
+permissions:
+   evhoarena.reload:
+     description: Permission pour la commande /arenareload (EvhoArena)
+     default: op  
+
+
+   evhoarena.lobby:
+     description: Permission pour la commande /setlobby et /unsetlobby (EvhoArena)
+     default: op
+     
+     
+   evhoarena.game:
+     description: Permission pour la commande /setgame et /unsetgame (EvhoArena)
+     default: op
+
+
+   evhoarena.zonegame:
+     description: Permission pour la commande /setzonegame et /unsetzonegame (EvhoArena)
+     default: op
