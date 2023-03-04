@@ -36,15 +36,42 @@ public class ArenaManager {
 	private ArenaMain main;
 	public ArenaManager(ArenaMain pluginMain) { this.main = pluginMain; }
 	/* Récupère la class "Main" */
+<<<<<<< HEAD
 	
+=======
+
+
+	// On vérifie si le jeux est désactivé //
+	private boolean isDisabled = false;
+	// On vérifie si le jeux est désactivé //
+
+
+	/*************************************************/
+	/* ON VÉRIFIE SI LE MINI-JEUX EST ACTIVÉ ON NON */
+	/************************************************/
+	public void isDisabled(boolean isDisabled) { this.isDisabled = isDisabled; }
+	public boolean isDisabled() { return this.isDisabled; }
+
+	/*************************************************/
+	/* ON VÉRIFIE SI LE MINI-JEUX EST ACTIVÉ ON NON */
+	/************************************************/
+
+>>>>>>> 928b412 (Initial commit)
 	
 	/****************************/
 	/* PARTIE STATES ET JOUEURS */
 	/****************************/
+<<<<<<< HEAD
 	
 	public void setState(GState state) { main.state = state; }
 	
 	
+=======
+
+	public void setState(GState state) { main.state = state; }
+
+
+>>>>>>> 928b412 (Initial commit)
 	public boolean isState(GState state) { return main.state == state; }
 
 
