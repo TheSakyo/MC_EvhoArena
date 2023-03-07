@@ -73,17 +73,11 @@ public class ArenaMain extends JavaPlugin {
 	// Variable pour Détecter la Console //
 	public ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 	// Variable pour Détecter la Console //
-	
 
 	
 	// Variable pour le Nom du Plugin //
 	public String prefix = ChatColor.WHITE + "[" + ChatColor.GREEN + "Evho" + ChatColor.YELLOW + "Arena" + ChatColor.WHITE + "]" + " ";
 	// Variable pour le Nom du Plugin //
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> 928b412 (Initial commit)
 		
 	
 	// Listes des joueurs //
@@ -169,19 +163,14 @@ public class ArenaMain extends JavaPlugin {
 		   this.getCommand("arenareload").setExecutor((CommandExecutor)new ReloadCommand(this)); //Commande pour recharger le plugin
 		   this.getCommand("arenarl").setExecutor((CommandExecutor)new ReloadCommand(this)); //Autre commande 'alias' pour recharger le plugin
 
-<<<<<<< HEAD
-=======
+
 		   this.getCommand("enablegame").setExecutor((CommandExecutor)new EnableGameCommand(this)); //Commande pour activer le mini-jeux
->>>>>>> 928b412 (Initial commit)
 		   this.getCommand("setlobby").setExecutor((CommandExecutor)new SetLobbyCommand(this)); //Commande pour la création du point de spawn lobby
 		   this.getCommand("setzonegame").setExecutor((CommandExecutor)new SetZoneGameCommand(this)); //Commande pour la création de la zone de jeu de l'arêne
 		   /*this.getCommand("setgame").setExecutor((CommandExecutor)new SetGameCommand(this)); //Commande pour la création du point de spawn de l'arêne*/
 
 
-<<<<<<< HEAD
-=======
-		   		   this.getCommand("disablegame").setExecutor((CommandExecutor)new DisableGameCommand(this)); //Commande pour désactiver le mini-jeux
->>>>>>> 928b412 (Initial commit)
+		   this.getCommand("disablegame").setExecutor((CommandExecutor)new DisableGameCommand(this)); //Commande pour désactiver le mini-jeux
 		   this.getCommand("unsetlobby").setExecutor((CommandExecutor)new UnSetLobbyCommand(this)); //Commande pour l'annulation du point de spawn lobby
 		   this.getCommand("unsetzonegame").setExecutor((CommandExecutor)new UnSetZoneGameCommand(this)); //Commande pour l'annulation de la zone de jeu de l'arêne
 		   /*this.getCommand("unsetgame").setExecutor((CommandExecutor)new UnSetGameCommand(this)); //Commande pour l'annulation du point de spawn de l'arêne*/

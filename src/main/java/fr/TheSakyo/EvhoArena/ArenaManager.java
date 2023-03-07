@@ -36,9 +36,6 @@ public class ArenaManager {
 	private ArenaMain main;
 	public ArenaManager(ArenaMain pluginMain) { this.main = pluginMain; }
 	/* Récupère la class "Main" */
-<<<<<<< HEAD
-	
-=======
 
 
 	// On vérifie si le jeux est désactivé //
@@ -56,28 +53,17 @@ public class ArenaManager {
 	/* ON VÉRIFIE SI LE MINI-JEUX EST ACTIVÉ ON NON */
 	/************************************************/
 
->>>>>>> 928b412 (Initial commit)
 	
 	/****************************/
 	/* PARTIE STATES ET JOUEURS */
 	/****************************/
-<<<<<<< HEAD
-	
-	public void setState(GState state) { main.state = state; }
-	
-	
-=======
 
 	public void setState(GState state) { main.state = state; }
-
-
->>>>>>> 928b412 (Initial commit)
 	public boolean isState(GState state) { return main.state == state; }
 
 
 
 	public void setOver(GOver over) { main.over = over; }
-
 
 	public boolean isOver(GOver over) { return main.over == over; }
 	
