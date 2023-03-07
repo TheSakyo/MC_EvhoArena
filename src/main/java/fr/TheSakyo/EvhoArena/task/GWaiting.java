@@ -30,69 +30,73 @@ public class GWaiting extends BukkitRunnable {
 	@Override
 	public void run() {
 
-		if(timer > 0) {
+		if(main.manager.isDisabled()) return;
+		else {
 
-			for(Player pls : main.manager.getPlayers()) {
+			if(timer > 0) {
 
-				pls.setFoodLevel(20);
-				pls.setExp(0);
+				for(Player pls : main.manager.getPlayers()) {
 
-				if(timer > 20) {
+					pls.setFoodLevel(20);
+					pls.setExp(0);
 
-					Component title = CustomMethod.StringToComponent(" ");
-					Component subtitle = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Attente de joueur(s)...");
-					Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
+					if(timer > 20) {
 
-					pls.showTitle(Title.title(title, subtitle, times));
-					pls.setLevel(0);
-
-				} else {
-
-					if(timer == 20) {
-
-						Component title = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Attente de joueur(s)...");
-						Component subtitle = CustomMethod.StringToComponent(ChatColor.GOLD + "Le jeu va bientôt commencé !");
-						Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+						Component title = CustomMethod.StringToComponent(" ");
+						Component subtitle = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Attente de joueur(s)...");
+						Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
 
 						pls.showTitle(Title.title(title, subtitle, times));
-					}
+						pls.setLevel(0);
 
-								/* ---------------------------------------- */
+					} else {
 
-					if(timer <= 20) pls.setLevel(timer);
-					if(timer != 1 && timer <= 3) pls.playSound(pls.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 1f, 1f);
-					else if(timer == 1) {
+						if(timer == 20) {
 
-						Component title = CustomMethod.StringToComponent(ChatColor.GOLD + "Lancement du Jeu...");
-						Component subtitle = CustomMethod.StringToComponent(ChatColor.RED + "Attente de Joueur(s) désactivé !");
-						Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+							Component title = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Attente de joueur(s)...");
+							Component subtitle = CustomMethod.StringToComponent(ChatColor.GOLD + "Le jeu va bientôt commencé !");
+							Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
 
-						pls.playSound(pls.getLocation(), Sound.BLOCK_BELL_USE, 1f, 1f);
-						pls.showTitle(Title.title(title, subtitle, times));
+							pls.showTitle(Title.title(title, subtitle, times));
+						}
+
+									/* ---------------------------------------- */
+
+						if(timer <= 20) pls.setLevel(timer);
+						if(timer != 1 && timer <= 3) pls.playSound(pls.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 1f, 1f);
+						else if(timer == 1) {
+
+							Component title = CustomMethod.StringToComponent(ChatColor.GOLD + "Lancement du Jeu...");
+							Component subtitle = CustomMethod.StringToComponent(ChatColor.RED + "Attente de Joueur(s) désactivé !");
+							Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+
+							pls.playSound(pls.getLocation(), Sound.BLOCK_BELL_USE, 1f, 1f);
+							pls.showTitle(Title.title(title, subtitle, times));
+						}
 					}
 				}
-			}
 
-			if(main.manager.getPlayers().size() >= 2) { timer--; }
-			else { timer--; timer++; }
+				if(main.manager.getPlayers().size() >= 2) { timer--; }
+				else { timer--; timer++; }
 
-		} else if(timer == 0) {
+			} else if(timer == 0) {
 
-			if(main.manager.getPlayers().size() >= 2) {
+				if(main.manager.getPlayers().size() >= 2) {
 
-				if(main.manager.isState(GState.WAITING)) {
+					if(main.manager.isState(GState.WAITING)) {
 
-					// Démarre la partie //
-					new GTaskAuto(main).runTaskTimer(main, 0, 20L);
-					main.manager.setState(GState.STARTING);
-					// Démarre la partie //
+						// Démarre la partie //
+						new GTaskAuto(main).runTaskTimer(main, 0, 20L);
+						main.manager.setState(GState.STARTING);
+						// Démarre la partie //
+					}
+					cancel();
 				}
-				cancel();
 			}
+									/* --------------------------------------------------------- */
+
+			if(main.manager.getPlayers().size() == 0) { cancel(); }
+			else if(main.manager.getPlayers().size() <= 1) { timer = 60; }
 		}
-								/* --------------------------------------------------------- */
-
-		if(main.manager.getPlayers().size() == 0) { cancel(); }
-		else if(main.manager.getPlayers().size() <= 1) { timer = 60; }
 	}
 }

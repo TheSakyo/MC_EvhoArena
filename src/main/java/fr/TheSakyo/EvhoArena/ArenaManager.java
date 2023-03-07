@@ -47,7 +47,18 @@ public class ArenaManager {
 	/*************************************************/
 	/* ON VÉRIFIE SI LE MINI-JEUX EST ACTIVÉ ON NON */
 	/************************************************/
-	public void isDisabled(boolean isDisabled) { this.isDisabled = isDisabled; }
+	public void isDisabled(boolean isDisabled) {
+
+		this.isDisabled = isDisabled;
+
+					/* ---------------------------------------------- */
+
+		Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+
+			player.setExp(0);
+			player.setLevel(0);
+		});
+	}
 	public boolean isDisabled() { return this.isDisabled; }
 
 	/*************************************************/
