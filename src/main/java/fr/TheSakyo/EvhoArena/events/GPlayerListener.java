@@ -136,6 +136,11 @@ public class GPlayerListener implements Listener {
 		new ScoreBoard(main).getScoreBoard(p, false, true, true);
 		// Créer un scoreboard pour le joueur //
 
+		if(main.manager.isDisabled()) {
+
+			p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu actuellement désactivé ! ");
+		}
+
 	}
 	// Évènement quand un joueur rejoint le serveur //
 

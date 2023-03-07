@@ -41,9 +41,13 @@ public class DisableGameCommand implements CommandExecutor {
 
 				if(args.length == 0) {
 
-					main.manager.isDisabled(true); //Active le Mini-Jeux
-					p.sendMessage(main.prefix + ChatColor.GREEN + "Le mini-jeu a été désactivé !");
-                    Bukkit.getServer().getOnlinePlayers().forEach(player -> player.showTitle(Title.title(title, subtitle, times)));
+					if(!main.manager.isDisabled()) {
+
+						main.manager.isDisabled(true); //Active le Mini-Jeux
+						p.sendMessage(main.prefix + ChatColor.GREEN + "Le mini-jeu a été désactivé !");
+						Bukkit.getServer().getOnlinePlayers().forEach(player -> player.showTitle(Title.title(title, subtitle, times)));
+
+					} else { p.sendMessage(main.prefix + ChatColor.RED + "Le mini-jeu n'est pas activé !"); }
 
 				} else if(args.length != 0) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /disablegame sans arguments"); }
 
