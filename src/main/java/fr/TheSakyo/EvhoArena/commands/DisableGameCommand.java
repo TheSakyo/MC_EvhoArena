@@ -37,7 +37,7 @@ public class DisableGameCommand implements CommandExecutor {
 
 		if(sender instanceof Player p) {
 
-			if(p.hasPermission("evhoarena.disablegame")) {
+			if(p.hasPermission("evhoarena.gamestate")) {
 
 				if(args.length == 0) {
 

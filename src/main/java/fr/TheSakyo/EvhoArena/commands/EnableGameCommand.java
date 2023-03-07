@@ -37,7 +37,7 @@ public class EnableGameCommand implements CommandExecutor {
 
 		if(sender instanceof Player p) {
 
-			if(p.hasPermission("evhoarena.enablegame")) {
+			if(p.hasPermission("evhoarena.gamestate")) {
 
 				if(args.length == 0) {
 

@@ -14,6 +14,13 @@ commands:
      description: Commande alias de 'arenareload' (EvhoArena)
 
 
+   enablegame:
+     description: Commande pour activé le mini-jeu (EvhoArena)
+
+   disablegame:
+     description: Commande pour désactivé le mini-jeu (EvhoArena)
+
+
    setlobby:
      description: Commande pour définir le point de spawn lobby (EvhoArena)
      
@@ -40,11 +47,16 @@ permissions:
      default: op  
 
 
+   evhoarena.gamestate:
+     description: Permission pour la commande /enablegame /disablegame (EvhoArena)
+     default: op
+
+
    evhoarena.lobby:
      description: Permission pour la commande /setlobby et /unsetlobby (EvhoArena)
      default: op
-     
-     
+
+
    evhoarena.game:
      description: Permission pour la commande /setgame et /unsetgame (EvhoArena)
      default: op
