@@ -22,7 +22,6 @@ public class EnableGameCommand implements CommandExecutor {
 	/* Récupère la class "Main" */
 
 
-
     private Component title = CustomMethod.StringToComponent(" ");
     private Component subtitle = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Mini-Jeu Activé !");
     private Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));

@@ -22,7 +22,6 @@ public class DisableGameCommand implements CommandExecutor {
 	/* Récupère la class "Main" */
 
 
-
     private Component title = CustomMethod.StringToComponent(" ");
     private Component subtitle = CustomMethod.StringToComponent(ChatColor.RED.toString() + ChatColor.BOLD.toString() + "Mini-Jeu Désactivé !");
     private Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
