@@ -48,6 +48,7 @@ public class EnableGameCommand implements CommandExecutor {
 				} else if(args.length != 0) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /enablegame sans arguments"); }
 
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
+
 			return true;
 
 		} else {
@@ -60,6 +61,7 @@ public class EnableGameCommand implements CommandExecutor {
 
 			} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /enablegame sans arguments"); }
 		}
+
 		return false;
 	}
 

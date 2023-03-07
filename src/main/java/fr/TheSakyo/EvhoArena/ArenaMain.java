@@ -192,7 +192,6 @@ public class ArenaMain extends JavaPlugin {
 	/* Activation du plugin */
 
 
-
 	/* Désactivation du plugin */
 	public void onDisable() {
 
