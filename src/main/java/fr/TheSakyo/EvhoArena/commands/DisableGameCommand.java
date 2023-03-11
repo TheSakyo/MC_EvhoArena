@@ -54,7 +54,7 @@ public class DisableGameCommand implements CommandExecutor {
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
 
 			return true;
-
+		
 		} else {
 
 			if(args.length == 0) {
