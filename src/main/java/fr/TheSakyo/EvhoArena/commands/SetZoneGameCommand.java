@@ -46,9 +46,9 @@ public class SetZoneGameCommand implements CommandExecutor {
                             p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu !");
                             return false;
                         }
-
+                        
+                        ZoneManager.setWorld("game", location.getWorld().getName());
                         ZoneManager.setFirstPos("game", location.getX(), location.getY(), location.getZ());
-                        ZoneManager.setWorld("game", p.getWorld().getName());
                         p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu !");
 
 						return true;
@@ -70,14 +70,14 @@ public class SetZoneGameCommand implements CommandExecutor {
                             return false;
                         }
 
-                        if(firstPos.getWorld() != world) {
+                        if(firstPos.getWorld() != world && location.getWorld() != world) {
 
                             p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu n'est pas dans le monde où vous êtes, veuillez aller dans le monde '" + world.getName() + "' !");
                             return false;
                         }
 
+                        ZoneManager.setWorld("game", firstPos.getWorld().getName()); // Redéfinit le monde de la zone
                         ZoneManager.setSecondPos("game", location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
-                        ZoneManager.setWorld("game", firstPos.getWorld().getName());
 
                                                      /* ----------------------------------------- */
 
