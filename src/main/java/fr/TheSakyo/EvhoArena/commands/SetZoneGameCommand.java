@@ -77,6 +77,7 @@ public class SetZoneGameCommand implements CommandExecutor {
                         }
 
                         ZoneManager.setSecondPos("game", location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
+                        ZoneManager.setWorld("game", firstPos.getWorld().getName());
 
                                                      /* ----------------------------------------- */
 
