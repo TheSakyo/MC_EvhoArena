@@ -140,7 +140,7 @@ public class GTaskAuto extends BukkitRunnable {
 					p.getInventory().clear();
 					p.setFoodLevel(20);
 					p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
-					p.teleport(spawn);
+					p.teleport(spawn.add(0.0, 1.5, 0.0));
 
 
 					//Affiche le grade du joueur en réinitialisant le Scoreboard
