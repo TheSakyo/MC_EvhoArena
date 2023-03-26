@@ -46,10 +46,18 @@ public class SetZoneGameCommand implements CommandExecutor {
                             p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu !");
                             return false;
                         }
-                        
+
+                        ZoneManager.create("game"); // Créer la zone de jeu
+                        ZoneManager.addGroupForZone("game", "default"); // Ajoute le grade par défaut à la zone
+                        p.sendMessage(main.prefix + ChatColor.GREEN + "La zone de jeu a été créer !");
+
+                                                                    /* ---------------------------------------------- */
+
                         ZoneManager.setWorld("game", location.getWorld().getName());
                         ZoneManager.setFirstPos("game", location.getX(), location.getY(), location.getZ());
-                        p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu !");
+
+                        p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu, vous pouvez faire de même " +
+                                     ChatColor.WHITE.toString() + ChatColor.ITALIC.toString() +  "<pos2>" + ChatColor.GREEN + " pour la deuxième position de la région !");
 
 						return true;
 
@@ -79,12 +87,7 @@ public class SetZoneGameCommand implements CommandExecutor {
                         ZoneManager.setWorld("game", firstPos.getWorld().getName()); // Redéfinit le monde de la zone
                         ZoneManager.setSecondPos("game", location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
 
-                                                     /* ----------------------------------------- */
-
-                        ZoneManager.create("game"); // Créer la zone de jeu
-                        ZoneManager.addGroupForZone("game", "default"); // Ajoute le grade par défaut à la zone
-
-                        p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la deuxième position de la zone de jeu !");
+                        p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la deuxième position de la zone de jeu, la région à donc été créer !");
 
 						return true;
 
