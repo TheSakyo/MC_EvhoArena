@@ -5,6 +5,7 @@ package fr.TheSakyo.EvhoArena.commands;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -47,11 +48,15 @@ public class SetZoneGameCommand implements CommandExecutor {
                         }
 
                         ZoneManager.setFirstPos("game", location.getX(), location.getY(), location.getZ());
+                        ZoneManager.setWorld("game", p.getWorld().getName());
                         p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu !");
 
 						return true;
 
 					} else if(args[0].equalsIgnoreCase("pos2")) {
+
+                        Location firstPos = ZoneManager.getFirstLocationPos("game"); // Récupère la première position de la zone de jeu
+                        World world = ZoneManager.getWorld("game"); // Récupère le monde où est censé se trouver la zone de jeu
 
                         if(location == null) {
 
@@ -59,16 +64,21 @@ public class SetZoneGameCommand implements CommandExecutor {
                             return false;
                         }
 
-                        if(ZoneManager.getFirstPos("game") == null) {
+                        if(firstPos == null) {
 
                             p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu n'est pas définit, veuillez d'abord la définir !");
                             return false;
                         }
 
-                        ZoneManager.setSecondPos("game", location.getX(), location.getY(), location.getZ());
+                        if(firstPos.getWorld() != world) {
 
-                        Location firstPos = ZoneManager.getFirstLocationPos("game"); // Récupère la première position de la zone de jeu
-                        Location secondPos = ZoneManager.getSecondLocationPos("game"); // Récupère la deuxième position de la zone de jeu
+                            p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu n'est pas dans le monde où vous êtes, veuillez aller dans le monde '" + world.getName() + "' !");
+                            return false;
+                        }
+
+                        ZoneManager.setSecondPos("game", location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
+
+                                                     /* ----------------------------------------- */
 
                         ZoneManager.create("game"); // Créer la zone de jeu
                         ZoneManager.addGroupForZone("game", "default"); // Ajoute le grade par défaut à la zone
