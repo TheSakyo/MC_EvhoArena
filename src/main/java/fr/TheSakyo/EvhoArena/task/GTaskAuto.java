@@ -8,12 +8,14 @@ import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoArena.enums.GState;
 
+import java.util.List;
 import java.util.Random;
 
 
@@ -106,11 +108,16 @@ public class GTaskAuto extends BukkitRunnable {
 					Location firstPos = ZoneManager.getFirstLocationPos("game"); // Récupère la première position de la zone de jeu
 					Location secondPos = ZoneManager.getSecondLocationPos("game"); // Récupère la deuxième position de la zone de jeu
 
-					Location location = CustomMethod.getRandomLocation(firstPos, secondPos);
+					Location location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
+					List<Location> aroundLoc = CustomMethod.getNearbyLocations(location, 2); // On récupère une liste de localisation autour d'une autre localisation précisée
 
 					if(location != null) {
 
-						while(location.getBlock().getType() == Material.AIR) location = CustomMethod.getRandomLocation(firstPos, secondPos);
+						while(aroundLoc.stream().filter(loc -> loc.getBlock().getType() == Material.AIR).findAny().isPresent()) {
+
+							location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
+							aroundLoc = CustomMethod.getNearbyLocations(location, 1); // On récupère une liste de localisation autour d'une autre localisation précisée
+						}
 					}
 
 					spawn = location; // Définit le spawn où le joueur sera téléporté
