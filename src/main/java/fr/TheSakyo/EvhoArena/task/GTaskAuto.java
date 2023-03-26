@@ -110,7 +110,7 @@ public class GTaskAuto extends BukkitRunnable {
 					Location location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
 					List<Location> aroundLoc = CustomMethod.getNearbyLocations(location, 2); // On récupère une liste de localisation autour d'une autre localisation précisée
 
-					if(location != null) {
+					if(location != null && aroundLoc != null) {
 
 						while(aroundLoc.stream().filter(loc -> loc.getBlock().getType() == Material.AIR).findAny().isPresent()) {
 
