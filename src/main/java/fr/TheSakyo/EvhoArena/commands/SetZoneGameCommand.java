@@ -71,6 +71,7 @@ public class SetZoneGameCommand implements CommandExecutor {
                         Location secondPos = ZoneManager.getSecondLocationPos("game"); // Récupère la deuxième position de la zone de jeu
 
                         ZoneManager.create("game"); // Créer la zone de jeu
+                        ZoneManager.resetGroupsForZone("game", true); // Réinitialise tous les groupes pour la zone
                         ZoneManager.addGroupForZone("game", "default"); // Ajoute le grade par défaut à la zone
 
                         p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la deuxième position de la zone de jeu !");
