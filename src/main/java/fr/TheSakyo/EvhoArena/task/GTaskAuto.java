@@ -108,14 +108,19 @@ public class GTaskAuto extends BukkitRunnable {
 					Location secondPos = ZoneManager.getSecondLocationPos("game"); // Récupère la deuxième position de la zone de jeu
 
 					Location location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
-					List<Location> aroundLoc = CustomMethod.getNearbyLocations(location, 2); // On récupère une liste de localisation autour d'une autre localisation précisée
 
-					if(location != null && aroundLoc != null) {
+					if(location != null) {
 
-						while(aroundLoc.stream().filter(loc -> loc.getBlock().getType() == Material.AIR).findAny().isPresent()) {
+						boolean hasNoAir = false; // Vérifiera si la liste des localisations contiendra pas de l'air
+
+						// On boucle on vérifie tant que il y'a de l'air dans la liste des localisations récupéré, alors on redéfinit la liste avec une nouvelle localisation aléatoire
+						while(!hasNoAir) {
 
 							location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
-							aroundLoc = CustomMethod.getNearbyLocations(location, 1); // On récupère une liste de localisation autour d'une autre localisation précisée
+							List<Location> aroundLoc = CustomMethod.getNearbyLocations(location, 2, false); // On récupère une liste de localisations autour d'une autre localisation précisée
+
+							// Vérifie si les localisations contienne pas d'air
+							hasNoAir = aroundLoc.stream().allMatch(loc -> loc.getBlock().getType() != Material.AIR) && location.getBlock().getType() != Material.AIR;
 						}
 					}
 
