@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.*;
@@ -204,6 +205,7 @@ public class GPlayerListener implements Listener {
 	}
 	// Évènement quand le joueur casse un bloc //
 
+			/* --------------------------------------------------------------------------------------------------------------------------- */
 
 	// Évènement quand le joueur pose un bloc //
 	@EventHandler
@@ -263,6 +265,12 @@ public class GPlayerListener implements Listener {
 		}
 	}
 	// Évènement quand le joueur vide un seau (lave ou eau) //
+
+			/* --------------------------------------------------------------------------------------------------------------------------- */
+
+	// Évènement quand des blocs se forment //
+	public void onForm(BlockFormEvent e) { e.setCancelled(true); /* On annule l'évènement */ }
+	// Évènement quand des blocs se forment //0
 
 	/**************************************/
 	/* PARTIE INTÉRACTION AVEC LE JOUEUR */
