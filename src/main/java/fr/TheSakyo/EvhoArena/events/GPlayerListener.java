@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.*;
@@ -268,9 +268,15 @@ public class GPlayerListener implements Listener {
 
 			/* --------------------------------------------------------------------------------------------------------------------------- */
 
-	// Évènement quand des blocs se forment //
-	public void onForm(BlockFormEvent e) { e.setCancelled(true); /* On annule l'évènement */ }
-	// Évènement quand des blocs se forment //0
+	// Évènement quand des blocs se forment par quelconques évènements //
+	public void onForm(BlockFromToEvent e) {
+
+		Block toBlock = e.getToBlock(); // Récupère le bloc qui est censé se former
+
+		// On annule l'évènement si le type du bloc formé est de l'obsidienne ou de la pierre taillé
+		if(toBlock.getType() == Material.OBSIDIAN || toBlock.getType() == Material.COBBLESTONE) { e.setCancelled(true); }
+	}
+	// Évènement quand des blocs se forment par quelconques évènements //
 
 	/**************************************/
 	/* PARTIE INTÉRACTION AVEC LE JOUEUR */
