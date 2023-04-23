@@ -116,60 +116,54 @@ public class ArenaManager {
 
 		Map<String, Location> locationMap = new HashMap<String, Location>();
 
-                    /* ------------------------------------------------------------------------ */
+							/* -------------------------------------------------- */
+							/* -------------------------------------------------- */
 
-		ConfigurationSection keysZone = ConfigFile.getConfigurationSection(main.config, "lobby");
-		if(keysZone != null) {
+		if(this.spawnLobby != null && !this.spawnLobby.isEmpty()) { return this.spawnLobby; }
+		else {
 
-			for(String gameZone : keysZone.getKeys(false)) {
+			ConfigurationSection keysZone = ConfigFile.getConfigurationSection(main.config, "lobby");
+			if(keysZone != null) {
 
-				Location resultLocation = new Location(Bukkit.getServer().getWorld("evholobby"), 0, 0, 0);
+				for(String gameZone : keysZone.getKeys(false)) {
 
-				String xKey = "lobby." + gameZone + ".X";
-				String yKey = "lobby." + gameZone + ".Y";
-				String zKey = "lobby." + gameZone + ".Z";
-				String yawKey = "lobby." + gameZone + ".Yaw";
-				String pitchKey = "lobby." + gameZone + ".Pitch";
+					Location resultLocation = new Location(Bukkit.getServer().getWorld("evholobby"), 0, 0, 0);
 
-				if(ConfigFile.contains(main.config, xKey)) {
+										/* ----------------------------------------- */
 
-					resultLocation.setX(ConfigFile.getDouble(main.config, xKey));
+					String xKey = "lobby." + gameZone + ".X";
+					String yKey = "lobby." + gameZone + ".Y";
+					String zKey = "lobby." + gameZone + ".Z";
+					String yawKey = "lobby." + gameZone + ".Yaw";
+					String pitchKey = "lobby." + gameZone + ".Pitch";
+
+										/* ----------------------------------------- */
+
+					if(ConfigFile.contains(main.config, xKey)) { resultLocation.setX(ConfigFile.getDouble(main.config, xKey)); }
+					if(ConfigFile.contains(main.config, yKey)) { resultLocation.setY(ConfigFile.getDouble(main.config, yKey)); }
+					if(ConfigFile.contains(main.config, zKey)) { resultLocation.setZ(ConfigFile.getDouble(main.config, zKey)); }
+					if(ConfigFile.contains(main.config, xKey)) { resultLocation.setYaw(Float.parseFloat(ConfigFile.getString(main.config, yawKey))); }
+					if(ConfigFile.contains(main.config, xKey)) { resultLocation.setPitch(Float.parseFloat(ConfigFile.getString(main.config, pitchKey))); }
+
+										/* ----------------------------------------- */
+
+					locationMap.putIfAbsent(gameZone, resultLocation);
 				}
-
-				if(ConfigFile.contains(main.config, yKey)) {
-
-					resultLocation.setY(ConfigFile.getDouble(main.config, yKey));
-				}
-
-				if(ConfigFile.contains(main.config, zKey)) {
-
-					resultLocation.setZ(ConfigFile.getDouble(main.config, zKey));
-				}
-
-				if(ConfigFile.contains(main.config, xKey)) {
-
-					resultLocation.setYaw(Float.parseFloat(ConfigFile.getString(main.config, yawKey)));
-				}
-
-				if(ConfigFile.contains(main.config, xKey)) {
-
-					resultLocation.setPitch(Float.parseFloat(ConfigFile.getString(main.config, pitchKey)));
-				}
-
-				locationMap.putIfAbsent(gameZone, resultLocation);
 			}
+
+						/* -------------------------------------------------------------------- */
+
+			Object[] keys = locationMap.keySet().toArray();
+			String randomKey = String.valueOf(keys[new Random().nextInt(keys.length)]);
+			this.spawnLobby.putIfAbsent(randomKey, locationMap.get(randomKey));
+
+			// DEBUG //
+			main.console.sendMessage(randomKey);
+			main.console.sendMessage(this.spawnLobby.get(randomKey).toString());
+			// DEBUG //
+
+			return this.spawnLobby;
 		}
-
-		Object[] keys = locationMap.keySet().toArray();
-		String randomKey = String.valueOf(keys[new Random().nextInt(keys.length)]);
-		this.spawnLobby.putIfAbsent(randomKey, locationMap.get(randomKey));
-
-		// DEBUG //
-		main.console.sendMessage(randomKey);
-		main.console.sendMessage(this.spawnLobby.get(randomKey).toString());
-		// DEBUG //
-
-		return this.spawnLobby;
 	}
 	// Récupère des spawns de façon 'random' pour les équipes //
 

@@ -4,7 +4,6 @@ package fr.TheSakyo.EvhoArena.events;
 
 import fr.TheSakyo.EvhoArena.utils.ScoreBoard;
 import fr.TheSakyo.EvhoArena.config.ConfigFileManager;
-import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ScoreboardManager;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -24,6 +23,7 @@ import fr.TheSakyo.EvhoArena.enums.GState;
 import fr.TheSakyo.EvhoArena.task.GWaiting;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -63,69 +63,50 @@ public class GPlayerListener implements Listener {
 			return;
 		}
 
-		//Essaye de vérifier si le spawn lobby est définit pour continuer le code
+		// ** ⬇️ Essaye de vérifier si le spawn lobby est définit pour téléporter le joueur où il faut ⬇️ ** //
 		try {
 
-			World World = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "lobby.World"));
+			String locname = String.valueOf(main.manager.randomSpawn().keySet().toArray()[0]);
+			loclobby = main.manager.randomSpawn().get(locname);
 
-			Double X = ConfigFile.getDouble(main.config, "lobby.X");
-			Double Y = ConfigFile.getDouble(main.config, "lobby.Y");
-			Double Z = ConfigFile.getDouble(main.config, "lobby.Z");
-			Float Yaw = Float.valueOf(ConfigFile.getString(main.config, "lobby.Yaw"));
-			Float Pitch = Float.valueOf(ConfigFile.getString(main.config, "lobby.Pitch"));
+						/* ------------------------------------------------------ */
+						/* ------------------------------------------------------ */
 
-			//Essaye de définit une "Location" du spawn lobby (vérifie si les spawn définit sont bien des coordonnées)
-			try {
+			p.teleport(loclobby);
+			p.getInventory().clear();
+			p.setFoodLevel(20);
+			p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
 
+			p.sendMessage(main.prefix + ChatColor.AQUA + "/hub ou /lobby pour retourner au hub !");
 
+			p.sendMessage(main.prefix + ChatColor.AQUA + "PvPArena chacun pour soi ! Créez vous des alliances et/ou trahisez vous !");
 
-				loclobby = new Location(World, X, Y, Z, Yaw, Pitch);
+			if(!main.manager.isState(GState.WAITING)) {
 
-				p.teleport(loclobby);
-				p.getInventory().clear();
-				p.setFoodLevel(20);
-				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
+				p.setGameMode(GameMode.SPECTATOR);
 
-				p.sendMessage(main.prefix + ChatColor.AQUA + "/hub ou /lobby pour retourner au hub !");
+				if(main.manager.isState(GState.STARTING)) { p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu est en cours de démarrage ! ");  } else { p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu a déjà démarré ! "); }
 
-				p.sendMessage(main.prefix + ChatColor.AQUA + "PvPArena chacun pour soi ! Créez vous des alliances et/ou trahisez vous !");
-
-				if(!main.manager.isState(GState.WAITING)) {
-
-					p.setGameMode(GameMode.SPECTATOR);
-
-					if(main.manager.isState(GState.STARTING)) { p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu est en cours de démarrage ! ");  } else { p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu a déjà démarré ! "); }
-
-					return;
-				}
-
-				if(!main.manager.getPlayers().contains(p)) main.manager.getPlayers().add(p);
-
-				p.setGameMode(GameMode.ADVENTURE);
-				p.setLevel(0);
-				p.setExp(0);
-				GInventoryListener.setItemLobby(p);
-
-				if(!main.manager.getPlayers().isEmpty() && main.manager.getPlayers().size() <= 1) { new GWaiting(main).runTaskTimer(main, 0, 20L); }
-
-				//Un message d'erreur est envoyé si le spawn lobby est pas définit
-			} catch(NullPointerException ex) {
-
-				String error = ChatColor.RED + "Point de spawn lobby non éxistant ! \n Si vous n'êtes pas administrateur, veuillez demander à un administrateur de le définir !";
-
-				p.sendMessage(main.prefix + error);
-
+				return;
 			}
 
-			//Un message d'erreur est envoyé si le spawn lobby est pas définit et qu'il y'a un erreur dans la configuration (Coordonnées du spawn null)"
+			if(!main.manager.getPlayers().contains(p)) main.manager.getPlayers().add(p);
+
+			p.setGameMode(GameMode.ADVENTURE);
+			p.setLevel(0);
+			p.setExp(0);
+			GInventoryListener.setItemLobby(p);
+
+			if(!main.manager.getPlayers().isEmpty() && main.manager.getPlayers().size() <= 1) { new GWaiting(main).runTaskTimer(main, 0, 20L); }
+
 		} catch(IllegalArgumentException ex) {
 
 			String error = ChatColor.RED + "Point de spawn lobby non éxistant, Erreur de Configuration ! \n Si vous n'êtes pas administrateur, veuillez demander à un administrateur de le définir !";
-
 			p.sendMessage(main.prefix + error);
 		}
+		// ** ⬆️ Essaye de vérifier si le spawn lobby est définit pour téléporter le joueur où il faut ⬆️ ** //
 
-		ConfigFileManager.LoadKillList();
+		ConfigFileManager.LoadKillList(); // Recharge la liste des joueurs tués
 
 		// Créer un scoreboard pour le joueur //
 		new ScoreBoard(main).getScoreBoard(p, false, true, true);
