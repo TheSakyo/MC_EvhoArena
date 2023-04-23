@@ -112,7 +112,7 @@ public class ArenaManager {
 
 
 	// Récupère des spawns de façon 'random' pour les équipes //
-	public Location randomSpawn() {
+	public Map<String, Location> randomSpawn() {
 
 		Map<String, Location> locationMap = new HashMap<String, Location>();
 
@@ -123,7 +123,7 @@ public class ArenaManager {
 
 			for(String gameZone : keysZone.getKeys(false)) {
 
-				Location resultLocation = new Location(Bukkit.getServer().getWorld("arenalobby"), 0, 0, 0);
+				Location resultLocation = new Location(Bukkit.getServer().getWorld("evholobby"), 0, 0, 0);
 
 				String xKey = "lobby." + gameZone + ".X";
 				String yKey = "lobby." + gameZone + ".Y";
@@ -133,27 +133,26 @@ public class ArenaManager {
 
 				if(ConfigFile.contains(main.config, xKey)) {
 
-					main.console.sendMessage("X ok");
 					resultLocation.setX(ConfigFile.getDouble(main.config, xKey));
 				}
+
 				if(ConfigFile.contains(main.config, yKey)) {
 
-					main.console.sendMessage("Y ok");
 					resultLocation.setY(ConfigFile.getDouble(main.config, yKey));
 				}
+
 				if(ConfigFile.contains(main.config, zKey)) {
 
-					main.console.sendMessage("Z ok");
 					resultLocation.setZ(ConfigFile.getDouble(main.config, zKey));
 				}
+
 				if(ConfigFile.contains(main.config, xKey)) {
 
-					main.console.sendMessage("Yaw ok");
 					resultLocation.setYaw(Float.parseFloat(ConfigFile.getString(main.config, yawKey)));
 				}
+
 				if(ConfigFile.contains(main.config, xKey)) {
 
-					main.console.sendMessage("Pitch ok");
 					resultLocation.setPitch(Float.parseFloat(ConfigFile.getString(main.config, pitchKey)));
 				}
 
@@ -161,14 +160,16 @@ public class ArenaManager {
 			}
 		}
 
-		String[] keys = (String[])locationMap.keySet().toArray();
-		String randomKey = keys[new Random().nextInt(keys.length)];
-		main.console.sendMessage(randomKey);
-
-
+		Object[] keys = locationMap.keySet().toArray();
+		String randomKey = String.valueOf(keys[new Random().nextInt(keys.length)]);
 		this.spawnLobby.putIfAbsent(randomKey, locationMap.get(randomKey));
+
+		// DEBUG //
+		main.console.sendMessage(randomKey);
 		main.console.sendMessage(this.spawnLobby.get(randomKey).toString());
-		return this.spawnLobby.get(randomKey);
+		// DEBUG //
+
+		return this.spawnLobby;
 	}
 	// Récupère des spawns de façon 'random' pour les équipes //
 
