@@ -89,10 +89,6 @@ public class ArenaMain extends JavaPlugin {
 	List<Player> killers = new ArrayList<Player>();
 	// Listes des tueurs //
 
-
-	// Listes des spawns //
-	List<Location> spawns = new ArrayList<Location>();
-	// Listes des spawns //
 	
 	
 	// Listes des joueur(s) tué(s) (pour scoreboard) //
@@ -132,8 +128,6 @@ public class ArenaMain extends JavaPlugin {
 		}
 		//⬆️ Vérifie si le serveur fonctionne sous bungee, si c'est le cas, on enregistre les canaux 'bungee' ⬆️ //
 
-
-		manager.LoadSpawnConfig(null, true, true); //Recharge les points de Spawn
 
 		manager.setState(GState.WAITING); //Définit le jeu en atente
 		manager.setOver(GOver.FALSE); //Définit le finalisation de la partie sur FAUX
@@ -176,6 +170,7 @@ public class ArenaMain extends JavaPlugin {
 		   /*this.getCommand("unsetgame").setExecutor((CommandExecutor)new UnSetGameCommand(this)); //Commande pour l'annulation du point de spawn de l'arêne*/
 
 		   console.sendMessage(prefix + ChatColor.GREEN + "ArenaGame Enabled"); //Message disant que le plugin est activé
+		   manager.randomSpawn();
 
 	   } else {
 			   

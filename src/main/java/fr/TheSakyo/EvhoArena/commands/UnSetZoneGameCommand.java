@@ -2,6 +2,7 @@
 
 package fr.TheSakyo.EvhoArena.commands;
 
+import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,30 +31,35 @@ public class UnSetZoneGameCommand implements CommandExecutor {
 
 		if(sender instanceof Player p) {
 
-			if(p.hasPermission("evhoarena.zonegame")) {
+			if(!p.hasPermission("evhoarena.zonegame")) {
 
-				if(args.length == 0) {
+				p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !");
+				return false;
+			}
+		}
 
-					if(ZoneManager.hasRegion("game")) {
+		if(args.length == 1) {
 
-						ZoneManager.delete("game"); // Supprime la zone de jeu
+			String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
 
-						p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez supprimer la zone de jeu !");
-						return true;
+			if(ZoneManager.hasRegion(name)) {
 
-					} else {
+				ZoneManager.delete(name); // Supprime la zone de jeu
+				main.manager.removeGame(name); // Ajoute la zone de jeu dans la liste des arênes de jeux
+				ConfigFile.removeKey(main.config, "zone." + name); // Enregistre la zone dans le fichier config
+				ConfigFile.saveConfig(main.config); // Sauvegarde le fichier config
 
-						p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu est introuvable !");
-						return false;
-					}
+				sender.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez supprimer la zone de jeu '" + name + "' !");
+				return true;
 
+			} else {
 
-				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetzonegame"); }
+				sender.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu '" + name + "' est introuvable !");
+				return false;
+			}
 
-			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
-			return true;
+		} else { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetzonegame <zoneName>"); }
 
-		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définit le spawn jeu !"); }
 		return false;
 	}
 

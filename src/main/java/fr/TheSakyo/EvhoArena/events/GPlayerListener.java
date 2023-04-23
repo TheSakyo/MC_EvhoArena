@@ -77,6 +77,8 @@ public class GPlayerListener implements Listener {
 			//Essaye de définit une "Location" du spawn lobby (vérifie si les spawn définit sont bien des coordonnées)
 			try {
 
+
+
 				loclobby = new Location(World, X, Y, Z, Yaw, Pitch);
 
 				p.teleport(loclobby);

@@ -157,8 +157,6 @@ public class GTaskAuto extends BukkitRunnable {
 
 							if(pls.getGameMode() == GameMode.SPECTATOR) {
 
-								//Définit le spawn rouge ou bleu au hasard pour les joueurs Spéctateur
-								spawn = main.manager.RandomSpawn();
 
 								//Si l'un des spawns jeu s'avéré à être null (erreur de configuration), la partie s'annule
 								if(spawn == null) {

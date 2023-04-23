@@ -3,6 +3,7 @@
 package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
+import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -35,43 +36,51 @@ public class SetLobbyCommand implements CommandExecutor {
 
 			if(p.hasPermission("evhoarena.lobby")) {
 				
-				if(args.length == 0) {
+				if(args.length == 1) {
 
-					try {
+					String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
 
-						World World = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "lobby.World"));
+					if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-						Double X = ConfigFile.getDouble(main.config, "lobby.X");
-						Double Y = ConfigFile.getDouble(main.config, "lobby.Y");
-						Double Z = ConfigFile.getDouble(main.config, "lobby.Z");
-						Float Yaw = Float.valueOf(ConfigFile.getString(main.config, "lobby.Yaw"));
-						Float Pitch = Float.valueOf(ConfigFile.getString(main.config, "lobby.Pitch"));
+						try {
 
-						new Location(World, X, Y, Z, Yaw, Pitch);
+							World World = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "lobby." + name + ".World"));
 
-						p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn lobby déjà éxistant ! Essayez '/unsetlobby' pour le supprimer et ensuite réessayez");
+							Double X = ConfigFile.getDouble(main.config, "lobby." + name + ".X");
+							Double Y = ConfigFile.getDouble(main.config, "lobby." + name + ".Y");
+							Double Z = ConfigFile.getDouble(main.config, "lobby." + name + ".Z");
+							Float Yaw = Float.valueOf(ConfigFile.getString(main.config, "lobby." + name + ".Yaw"));
+							Float Pitch = Float.valueOf(ConfigFile.getString(main.config, "lobby." + name + ".Pitch"));
 
-					} catch(IllegalArgumentException | NullPointerException e) {
-					
-						ConfigFile.set(main.config, "lobby.World", p.getLocation().getWorld().getName());
-						ConfigFile.set(main.config, "lobby.X", p.getLocation().getX());
-						ConfigFile.set(main.config, "lobby.Y", p.getLocation().getY());
-						ConfigFile.set(main.config, "lobby.Z", p.getLocation().getZ());
-						ConfigFile.set(main.config, "lobby.Yaw", p.getLocation().getYaw() + "f");
-						ConfigFile.set(main.config, "lobby.Pitch", p.getLocation().getPitch() + "f");
+							new Location(World, X, Y, Z, Yaw, Pitch);
 
-						ConfigFile.saveConfig(main.config);
+							p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn lobby déjà éxistant ! Essayez '/unsetlobby " + name + "' pour le supprimer et ensuite réessayez");
 
-						p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn lobby définit !");
+						} catch(IllegalArgumentException | NullPointerException e) {
 
+							ConfigFile.set(main.config, "lobby." + name + ".World", p.getLocation().getWorld().getName());
+							ConfigFile.set(main.config, "lobby." + name + ".X", p.getLocation().getX());
+							ConfigFile.set(main.config, "lobby." + name + ".Y", p.getLocation().getY());
+							ConfigFile.set(main.config, "lobby." + name + ".Z", p.getLocation().getZ());
+							ConfigFile.set(main.config, "lobby." + name + ".Yaw", p.getLocation().getYaw() + "f");
+							ConfigFile.set(main.config, "lobby." + name + ".Pitch", p.getLocation().getPitch() + "f");
+
+							ConfigFile.saveConfig(main.config);
+
+							p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn lobby pour la zone de jeu '" + name + "' définit !");
+							return true;
+						}
+
+					} else {
+
+						p.sendMessage(ChatColor.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
 					}
 				
-				} else if(args.length != 0) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setlobby sans arguments"); }
+				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setlobby <zoneName>"); }
 				
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
-			return true;
 
-		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définit le spawn lobby !"); }
+		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définir un spawn lobby !"); }
 		return false;
 	}
 	

@@ -5,6 +5,7 @@ package fr.TheSakyo.EvhoArena.config;
 import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
@@ -15,20 +16,19 @@ public class ConfigFileManager extends fr.TheSakyo.EvhoUtility.config.ConfigFile
     private static ArenaMain mainInstance = ArenaMain.getInstance();
 
 
+    // ⬇️ *** CHARGEMENT DES FICHIERS DE CONFIGURATIONS D'EVHOARENA *** ⬇️ //
+    public static void LoadConfig() {
 
-	// ⬇️ *** CHARGEMENT DES FICHIERS DE CONFIGURATIONS D'EVHOARENA *** ⬇️ //
-	public static void LoadConfig() {
-
-		// En-Tête du fichier de configuration "config.yml" //
-		String[] headerConfig = {
+        // En-Tête du fichier de configuration "config.yml" //
+        String[] headerConfig = {
                "| ===== EvhoArena Configuration ===== |",
                " ",
                "*** Configuration Globale ***",
                " ",
                "par TheSakyo",
                " "
-		};
-		// En-Tête du fichier de configuration "config.yml" //
+        };
+        // En-Tête du fichier de configuration "config.yml" //
 
 
         // En-Tête du fichier de configuration "playerkills.yml" //
@@ -44,18 +44,26 @@ public class ConfigFileManager extends fr.TheSakyo.EvhoUtility.config.ConfigFile
 
 
 
-		/* Chargement/Création du fichier de configuration 'config.yml' */
-		if(getConfigFile(mainInstance.getDataFolder(), "config.yml").exists()) {
+        /* Chargement/Création du fichier de configuration 'config.yml' */
+        if(getConfigFile(mainInstance.getDataFolder(), "config.yml").exists()) {
 
-		   mainInstance.config = getNewConfig(mainInstance.getDataFolder(), "config.yml", headerConfig);
-		   ConfigFile.reloadConfig(mainInstance.config);
+            mainInstance.config = getNewConfig(mainInstance.getDataFolder(), "config.yml", headerConfig);
+            ConfigFile.reloadConfig(mainInstance.config);
 
-		} else {
+                    /* ------------------------------------------------------------------------ */
 
-		   mainInstance.config = getNewConfig(mainInstance.getDataFolder(), "config.yml", headerConfig);
-		   ConfigFile.saveConfig(mainInstance.config);
-		}
-		/* Chargement/Création du fichier de configuration 'config.yml' */
+            ConfigurationSection keysZone = ConfigFile.getConfigurationSection(mainInstance.config, "zone");
+            if(keysZone != null) {
+
+                for(String gameZone : keysZone.getKeys(false)) { mainInstance.manager.addGame(gameZone); }
+            }
+
+        } else {
+
+            mainInstance.config = getNewConfig(mainInstance.getDataFolder(), "config.yml", headerConfig);
+            ConfigFile.saveConfig(mainInstance.config);
+        }
+        /* Chargement/Création du fichier de configuration 'config.yml' */
 
 
 
@@ -75,8 +83,8 @@ public class ConfigFileManager extends fr.TheSakyo.EvhoUtility.config.ConfigFile
         /* Chargement/Création du fichier de configuration 'playerkills.yml' */
 
 
-	}
-	// ⬆️ *** CHARGEMENT DES FICHIERS DE CONFIGURATIONS D'EVHOARENA *** ⬆️ //
+    }
+    // ⬆️ *** CHARGEMENT DES FICHIERS DE CONFIGURATIONS D'EVHOARENA *** ⬆️ //
 
 
         /* ------------------------------------------------------------- */
@@ -87,7 +95,7 @@ public class ConfigFileManager extends fr.TheSakyo.EvhoUtility.config.ConfigFile
     /**********************************************************************************/
     /* MÉTHODE POUR CHARGER LA LISTE DES "KILLS" DES JOUEURS DEPUIS UN FICHIER CONFIG */
     /**********************************************************************************/
-	public static void LoadKillList() {
+    public static void LoadKillList() {
 
         // ⬇️ Ajoute les kills des joueurs sauvegardé ⬇️ //
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {

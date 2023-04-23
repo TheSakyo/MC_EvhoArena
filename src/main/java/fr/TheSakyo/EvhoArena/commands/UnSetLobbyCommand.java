@@ -22,60 +22,45 @@ public class UnSetLobbyCommand implements CommandExecutor {
 	private ArenaMain main;
 	public UnSetLobbyCommand(ArenaMain pluginMain) { this.main = pluginMain; }
 	/* Récupère la class "Main" */
-	
-	
+
+
 	/*********************************************/
-	/* PARTIE COMMANDE POUR POINT DE SPAWN LOBBY */ 
+	/* PARTIE COMMANDE POUR POINT DE SPAWN LOBBY */
     /*********************************************/
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
-		
+
 		if(sender instanceof Player p) {
 
 			if(!p.hasPermission("evhoarena.lobby")) {
-				
+
 				p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !");
-				
-				return true;
+				return false;
 			}
 		}
-				
-		if(args.length == 0) {
-			
+
+		if(args.length == 1) {
+
+			String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
+
 			try {
-			
-				World World = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "lobby.World"));
-				
-				Double X = ConfigFile.getDouble(main.config, "lobby.X");
-				Double Y = ConfigFile.getDouble(main.config, "lobby.Y");
-				Double Z = ConfigFile.getDouble(main.config, "lobby.Z");
-				Float Yaw = Float.valueOf(ConfigFile.getString(main.config, "lobby.Yaw"));
-				Float Pitch = Float.valueOf(ConfigFile.getString(main.config, "lobby.Pitch"));
 
-				new Location(World, X, Y, Z, Yaw, Pitch);
-
-				ConfigFile.set(main.config, "lobby.World", null);
-				ConfigFile.set(main.config, "lobby.X", null);
-				ConfigFile.set(main.config, "lobby.Y", null);
-				ConfigFile.set(main.config, "lobby.Z", null);
-				ConfigFile.set(main.config, "lobby.Yaw", null);
-				ConfigFile.set(main.config, "lobby.Pitch", null);
-
+				ConfigFile.removeKey(main.config, "lobby." + name);
 				ConfigFile.saveConfig(main.config);
 
-				sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn lobby supprimé !");
-			
-			} catch(IllegalArgumentException | NullPointerException e) { sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn lobby non éxistant !");  }
+				sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn lobby supprimé pour la zone de jeu '" + name + "' !");
+
+			} catch(Exception e) { sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn lobby pour la zone de jeu '" + name + "' non éxistant !");  }
 			return true;
-		
-		} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetlobby sans arguments"); }
-				
+
+		} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetlobby <zoneName>"); }
+
 		return false;
 	}
-	
+
 	/*********************************************/
-	/* PARTIE COMMANDE POUR POINT DE SPAWN LOBBY */ 
+	/* PARTIE COMMANDE POUR POINT DE SPAWN LOBBY */
     /*********************************************/
 
 }

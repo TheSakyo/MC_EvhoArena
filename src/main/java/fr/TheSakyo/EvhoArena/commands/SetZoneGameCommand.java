@@ -2,6 +2,7 @@
 
 package fr.TheSakyo.EvhoArena.commands;
 
+import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,88 +36,90 @@ public class SetZoneGameCommand implements CommandExecutor {
 
 			if(p.hasPermission("evhoarena.zonegame")) {
 
-				if(args.length == 1) {
+				if(args.length == 2) {
 
                     Location location = p.getLocation(); // Récupère la localisation du Joueur
+                    String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
 
-					if(args[0].equalsIgnoreCase("pos1")) {
+					if(args[1].equalsIgnoreCase("pos1")) {
 
-                        if(ZoneManager.isExist("game") && ZoneManager.hasRegion("game")) {
+                        if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-                            p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatColor.GOLD + "/unsetzonegame" + ChatColor.RED + "' !");
+                            p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu '" + name + "' éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatColor.GOLD + "/unsetzonegame " + name + ChatColor.RED + "' !");
                             return false;
 
                         } else {
 
                             if(location == null) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu !");
+                                p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu '" + name + "' !");
                                 return false;
                             }
 
-                            ZoneManager.create("game"); // Créer la zone de jeu
-                            ZoneManager.addGroupForZone("game", "default"); // Ajoute le grade par défaut à la zone
+                            ZoneManager.create(name); // Créer la zone de jeu
+                            ZoneManager.addGroupForZone(name, "default"); // Ajoute le grade par défaut à la zone
+
+                            main.manager.addGame(name); // Ajoute la zone de jeu dans la liste des arênes de jeux
+                            ConfigFile.set(main.config, "zone." + name, true); // Enregistre la zone dans le fichier config
+				            ConfigFile.saveConfig(main.config); // Sauvegarde le fichier config
+
                             p.sendMessage(main.prefix + ChatColor.GREEN + "La zone de jeu a été créer !");
 
                                                                         /* ---------------------------------------------- */
 
-                            ZoneManager.setWorld("game", location.getWorld().getName());
-                            ZoneManager.setFirstPos("game", location.getX(), location.getY(), location.getZ());
+                            ZoneManager.setWorld(name, location.getWorld().getName());
+                            ZoneManager.setFirstPos(name, location.getX(), location.getY(), location.getZ());
 
-                            p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu, vous pouvez faire de même '" +
+                            p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu '" + name + "', vous pouvez faire de même '" +
                                          ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() +  "<pos2>" + ChatColor.GREEN + "' pour la deuxième position de la région !");
 
                             return true;
 
                         }
 
-					} else if(args[0].equalsIgnoreCase("pos2")) {
+					} else if(args[1].equalsIgnoreCase("pos2")) {
 
-                        if(ZoneManager.isExist("game") && ZoneManager.hasRegion("game")) {
+                        if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-                            p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatColor.GOLD + "/unsetzonegame" + ChatColor.RED + "' !");
-                            return false;
+                            p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu '" + name + "' éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatColor.GOLD + "/unsetzonegame" + name +  ChatColor.RED + "' !");
 
                         } else {
 
-                            Location firstPos = ZoneManager.getFirstLocationPos("game"); // Récupère la première position de la zone de jeu
-                            World world = ZoneManager.getWorld("game"); // Récupère le monde où est censé se trouver la zone de jeu
+                            Location firstPos = ZoneManager.getFirstLocationPos(name); // Récupère la première position de la zone de jeu
+                            World world = ZoneManager.getWorld(name); // Récupère le monde où est censé se trouver la zone de jeu
 
                             if(location == null) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu !");
+                                p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu '" + name + "' !");
                                 return false;
                             }
 
                             if(firstPos == null) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu n'est pas définit, veuillez d'abord la définir !");
+                                p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu '" + name + "' n'est pas définit, veuillez d'abord la définir !");
                                 return false;
                             }
 
                             if(firstPos.getWorld() != world && location.getWorld() != world) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu n'est pas dans le monde où vous êtes, veuillez aller dans le monde '" + world.getName() + "' !");
+                                p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu '" + name + "' n'est pas dans le monde où vous êtes, veuillez aller dans le monde '" + world.getName() + "' !");
                                 return false;
                             }
 
-                            ZoneManager.setWorld("game", firstPos.getWorld().getName()); // Redéfinit le monde de la zone
-                            ZoneManager.setSecondPos("game", location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
+                            ZoneManager.setWorld(name, firstPos.getWorld().getName()); // Redéfinit le monde de la zone
+                            ZoneManager.setSecondPos(name, location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
 
-                            p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la deuxième position de la zone de jeu, la région à donc été créer !");
-
+                            p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la deuxième position de la zone de jeu '" + name + "', la région à donc été créer !");
                             return true;
-
                         }
 
 					} else { Bukkit.getServer().dispatchCommand(sender, "setzonegame"); return true; }
 
-				} else if(args.length != 1) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setzonegame <pos1> ou <pos2>"); }
+				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setzonegame <zoneName> <pos1> ou <pos2>"); }
 
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
-			return true;
 
-		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définit la zone de jeu !"); }
+		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définir une zone de jeu !"); }
 		return false;
 	}
 

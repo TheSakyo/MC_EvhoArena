@@ -3,6 +3,7 @@
 package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
+import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -37,81 +38,91 @@ public class SetGameCommand implements CommandExecutor {
 				
 				if(args.length == 1) {
 
-					if(args[0].equalsIgnoreCase("blue")) {
+					String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
 
-						try {
+					if(args[1].equalsIgnoreCase("blue")) {
 
-							World BlueWorld = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "game.blue.World"));
+						if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-							Double BlueX = ConfigFile.getDouble(main.config, "game.blue.X");
-							Double BlueY = ConfigFile.getDouble(main.config, "game.blue.Y");
-							Double BlueZ = ConfigFile.getDouble(main.config, "game.blue.Z");
-							Float BlueYaw = Float.valueOf(ConfigFile.getString(main.config, "game.blue.Yaw"));
-							Float BluePitch = Float.valueOf(ConfigFile.getString(main.config, "game.blue.Pitch"));
+							try {
 
-							new Location(BlueWorld, BlueX, BlueY, BlueZ, BlueYaw, BluePitch);
+								World BlueWorld = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "game." + name + ".blue.World"));
 
-							p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn jeu déjà éxistant pour les " + ChatColor.AQUA + "bleus" + ChatColor.RED +  " ! Essayez '/unsetgame blue' pour le supprimer et ensuite réessayez");
+								Double BlueX = ConfigFile.getDouble(main.config, "game." + name + ".blue.X");
+								Double BlueY = ConfigFile.getDouble(main.config, "game." + name + ".blue.Y");
+								Double BlueZ = ConfigFile.getDouble(main.config, "game." + name + ".blue.Z");
+								Float BlueYaw = Float.valueOf(ConfigFile.getString(main.config, "game." + name + ".blue.Yaw"));
+								Float BluePitch = Float.valueOf(ConfigFile.getString(main.config, "game." + name + ".blue.Pitch"));
 
-						} catch(IllegalArgumentException | NullPointerException e) {
+								new Location(BlueWorld, BlueX, BlueY, BlueZ, BlueYaw, BluePitch);
 
-							ConfigFile.set(main.config, "game.blue.World", p.getLocation().getWorld().getName());
-							ConfigFile.set(main.config, "game.blue.X", p.getLocation().getX());
-							ConfigFile.set(main.config, "game.blue.Y", p.getLocation().getY());
-							ConfigFile.set(main.config, "game.blue.Z", p.getLocation().getZ());
-							ConfigFile.set(main.config, "game.blue.Yaw", p.getLocation().getYaw() + "f");
-							ConfigFile.set(main.config, "game.blue.Pitch", p.getLocation().getPitch() + "f");
+								p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn de la zone de jeu '" + name + "' déjà éxistant pour les " + ChatColor.AQUA + "bleus" + ChatColor.RED +  " ! Essayez '/unsetgame " + name + " blue' pour le supprimer et ensuite réessayez");
 
-							p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn jeu définit pour les " + ChatColor.AQUA + "bleus" + ChatColor.GREEN + " !");
+							} catch(IllegalArgumentException | NullPointerException e) {
 
-							ConfigFile.saveConfig(main.config);
-							main.manager.LoadSpawnConfig(p, false, true);
+								ConfigFile.set(main.config, "game." + name + ".blue.World", p.getLocation().getWorld().getName());
+								ConfigFile.set(main.config, "game." + name + ".blue.X", p.getLocation().getX());
+								ConfigFile.set(main.config, "game." + name + ".blue.Y", p.getLocation().getY());
+								ConfigFile.set(main.config, "game." + name + ".blue.Z", p.getLocation().getZ());
+								ConfigFile.set(main.config, "game." + name + ".blue.Yaw", p.getLocation().getYaw() + "f");
+								ConfigFile.set(main.config, "game." + name + ".blue.Pitch", p.getLocation().getPitch() + "f");
+
+								p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn de la zone de jeu '" + name + "' définit pour les " + ChatColor.AQUA + "bleus" + ChatColor.GREEN + " !");
+
+								ConfigFile.saveConfig(main.config);
+								return true;
+							}
+
+						} else {
+
+							p.sendMessage(ChatColor.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
 						}
 
-						return true;
+					} else if(args[1].equalsIgnoreCase("red")) {
 
-					} else if(args[0].equalsIgnoreCase("red")) {
+						if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-						try {
+							try {
 
-							World RedWorld = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "game.red.World"));
+								World RedWorld = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "game." + name + ".red.World"));
 
-							Double RedX = ConfigFile.getDouble(main.config, "game.red.X");
-							Double RedY = ConfigFile.getDouble(main.config, "game.red.Y");
-							Double RedZ = ConfigFile.getDouble(main.config, "game.red.Z");
-							Float RedYaw = Float.valueOf(ConfigFile.getString(main.config, "game.red.Yaw"));
-							Float RedPitch = Float.valueOf(ConfigFile.getString(main.config, "game.red.Pitch"));
+								Double RedX = ConfigFile.getDouble(main.config, "game." + name + ".red.X");
+								Double RedY = ConfigFile.getDouble(main.config, "game." + name + ".red.Y");
+								Double RedZ = ConfigFile.getDouble(main.config, "game." + name + ".red.Z");
+								Float RedYaw = Float.valueOf(ConfigFile.getString(main.config, "game." + name + ".red.Yaw"));
+								Float RedPitch = Float.valueOf(ConfigFile.getString(main.config, "game." + name + ".red.Pitch"));
 
-							new Location(RedWorld, RedX, RedY, RedZ, RedYaw, RedPitch);
+								new Location(RedWorld, RedX, RedY, RedZ, RedYaw, RedPitch);
 
-							p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn jeu déjà éxistant pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.RED +  " ! Essayez '/unsetgame red' pour le supprimer et ensuite réessayez");
+								p.sendMessage(main.prefix + ChatColor.RED + "Point spawn de la zone de jeu '" + name + "' déjà éxistant pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.RED +  " ! Essayez '/unsetgame "  + name +  " red' pour le supprimer et ensuite réessayez");
 
-						} catch(IllegalArgumentException | NullPointerException e) {
+							} catch(IllegalArgumentException | NullPointerException e) {
 
-							ConfigFile.set(main.config, "game.red.World", p.getLocation().getWorld().getName());
-							ConfigFile.set(main.config, "game.red.X", p.getLocation().getX());
-							ConfigFile.set(main.config, "game.red.Y", p.getLocation().getY());
-							ConfigFile.set(main.config, "game.red.Z", p.getLocation().getZ());
-							ConfigFile.set(main.config, "game.red.Yaw", p.getLocation().getYaw() + "f");
-							ConfigFile.set(main.config, "game.red.Pitch", p.getLocation().getPitch() + "f");
+								ConfigFile.set(main.config, "game." + name + ".red.World", p.getLocation().getWorld().getName());
+								ConfigFile.set(main.config, "game." + name + ".red.X", p.getLocation().getX());
+								ConfigFile.set(main.config, "game." + name + ".red.Y", p.getLocation().getY());
+								ConfigFile.set(main.config, "game." + name + ".red.Z", p.getLocation().getZ());
+								ConfigFile.set(main.config, "game." + name + ".red.Yaw", p.getLocation().getYaw() + "f");
+								ConfigFile.set(main.config, "game." + name + ".red.Pitch", p.getLocation().getPitch() + "f");
 
-							p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn jeu définit pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.GREEN + " !");
+								p.sendMessage(main.prefix + ChatColor.GREEN + "Point spawn de la zone de jeu '" + name + "' définit pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.GREEN + " !");
 
-							ConfigFile.saveConfig(main.config);
-							main.manager.LoadSpawnConfig(p, true, false);
+								ConfigFile.saveConfig(main.config);
+								return true;
+							}
 
+						} else {
+
+							p.sendMessage(ChatColor.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
 						}
-
-						return true;
 
 					} else { Bukkit.getServer().dispatchCommand(sender, "setgame"); return true; }
 
-				} else if(args.length != 1) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setgame <blue> ou <red>"); }
+				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setgame <zoneName>"); }
 
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
-			return true;
 
-		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définit le spawn jeu !"); }
+		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définir un spawn de jeu !"); }
 		return false;
 	}
 	

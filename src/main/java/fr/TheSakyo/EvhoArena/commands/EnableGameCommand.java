@@ -46,14 +46,13 @@ public class EnableGameCommand implements CommandExecutor {
 						main.manager.isDisabled(false); //Active le Mini-Jeux
 						p.sendMessage(main.prefix + ChatColor.GREEN + "Le mini-jeu a été activé !");
 						Bukkit.getServer().getOnlinePlayers().forEach(player -> player.showTitle(Title.title(title, subtitle, times)));
+						return true;
 
 					} else { p.sendMessage(main.prefix + ChatColor.RED + "Le mini-jeu est déjà activé !"); }
 
 				} else if(args.length != 0) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /enablegame sans arguments"); }
 
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
-
-			return true;
 
 		} else {
 
@@ -62,6 +61,7 @@ public class EnableGameCommand implements CommandExecutor {
                 main.manager.isDisabled(false); //Active le Mini-Jeux
                 sender.sendMessage(main.prefix + ChatColor.GREEN + "Le mini-jeu a été activé !");
                 Bukkit.getServer().getOnlinePlayers().forEach(player -> player.showTitle(Title.title(title, subtitle, times)));
+				return true;
 
 			} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /enablegame sans arguments"); }
 		}

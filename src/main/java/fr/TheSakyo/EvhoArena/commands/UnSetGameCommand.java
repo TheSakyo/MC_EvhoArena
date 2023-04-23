@@ -37,76 +37,47 @@ public class UnSetGameCommand implements CommandExecutor {
 			if(!p.hasPermission("evhoarena.game")) {
 				
 				p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !");
-				return true;
+				return false;
 			}
 		}
 				
-		if(args.length == 1) {
+		if(args.length == 2) {
+
+			String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
 			
-			if(args[0].equalsIgnoreCase("blue")) {
+			if(args[1].equalsIgnoreCase("blue")) {
 				
 				try {
 
-					World BlueWorld = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "game.blue.World"));
-
-					Double BlueX = ConfigFile.getDouble(main.config, "game.blue.X");
-					Double BlueY = ConfigFile.getDouble(main.config, "game.blue.Y");
-					Double BlueZ = ConfigFile.getDouble(main.config, "game.blue.Z");
-					Float BlueYaw = Float.valueOf(ConfigFile.getString(main.config, "game.blue.Yaw"));
-					Float BluePitch = Float.valueOf(ConfigFile.getString(main.config, "game.blue.Pitch"));
-
-					Location locBlue = new Location(BlueWorld, BlueX, BlueY, BlueZ, BlueYaw, BluePitch);
-
-					if(main.manager.getSpawns().contains(locBlue)) main.manager.getSpawns().remove(locBlue);
-
-					ConfigFile.set(main.config, "game.blue.World", null);
-					ConfigFile.set(main.config, "game.blue.X", null);
-					ConfigFile.set(main.config, "game.blue.Y", null);
-					ConfigFile.set(main.config, "game.blue.Z", null);
-					ConfigFile.set(main.config, "game.blue.Yaw", null);
-					ConfigFile.set(main.config, "game.blue.Pitch", null);
-
-					sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn jeu supprimé pour les " + ChatColor.AQUA + "bleus" + ChatColor.GREEN + " !");
-
+					ConfigFile.removeKey(main.config, "game." + name + "blue");
 					ConfigFile.saveConfig(main.config);
 
-				} catch(IllegalArgumentException | NullPointerException e) { sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn jeu non éxistant pour les " + ChatColor.AQUA + "bleus" + ChatColor.RED + " !"); }
+					sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn de la zone de jeu '" + name + "' supprimé pour les " + ChatColor.AQUA + "bleus" + ChatColor.GREEN + " !");
+					return true;
 
-				return true;
+				} catch(IllegalArgumentException | NullPointerException e) {
 
-			} else if(args[0].equalsIgnoreCase("red")) {
+					sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn de la zone de jeu '" + name + "' non éxistant pour les " + ChatColor.AQUA + "bleus" + ChatColor.RED + " !");
+				}
+
+			} else if(args[1].equalsIgnoreCase("red")) {
 				
 				try {
 
-					World RedWorld = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "game.red.World"));
-
-					Double RedX = ConfigFile.getDouble(main.config, "game.red.X");
-					Double RedY = ConfigFile.getDouble(main.config, "game.red.Y");
-					Double RedZ = ConfigFile.getDouble(main.config, "game.red.Z");
-					Float RedYaw = Float.valueOf(ConfigFile.getString(main.config, "game.red.Yaw"));
-					Float RedPitch = Float.valueOf(ConfigFile.getString(main.config, "game.red.Pitch"));
-
-					Location locRed = new Location(RedWorld, RedX, RedY, RedZ, RedYaw, RedPitch);
-
-					if(main.manager.getSpawns().contains(locRed)) main.manager.getSpawns().remove(locRed);
-
-					ConfigFile.set(main.config, "game.red.World", null);
-					ConfigFile.set(main.config, "game.red.X", null);
-					ConfigFile.set(main.config, "game.red.Y", null);
-					ConfigFile.set(main.config, "game.red.Z", null);
-					ConfigFile.set(main.config, "game.red.Yaw", null);
-					ConfigFile.set(main.config, "game.red.Pitch", null);
-
-					sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn jeu supprimé pour les " + ChatColor.RED + "rouges" + ChatColor.GREEN + " !");
+					ConfigFile.removeKey(main.config, "game." + name + "red");
 					ConfigFile.saveConfig(main.config);
 
-				} catch(IllegalArgumentException | NullPointerException e) { sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn jeu non éxistant pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.RED + " !"); }
+					sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn de la zone de jeu '" + name + "' supprimé pour les " + ChatColor.RED + "rouges" + ChatColor.GREEN + " !");
+					return true;
 
-				return true;
+				} catch(Exception e) {
 
-			} else { Bukkit.getServer().dispatchCommand(sender, "setgame"); return true; }
+					sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn de la zone de jeu '" + name + "' non éxistant pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.RED + " !");
+				}
 
-		} else if(args.length != 1) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetgame <blue> ou <red>"); }
+			} else { Bukkit.getServer().dispatchCommand(sender, "unsetgame"); return false; }
+
+		} else { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetgame <zoneName>  <blue> ou <red>"); }
 
 		return false;
 	}

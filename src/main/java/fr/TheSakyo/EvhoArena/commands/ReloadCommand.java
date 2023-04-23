@@ -36,6 +36,7 @@ public class ReloadCommand implements CommandExecutor {
 
 					main.reloadPlugin(); //Recharge le plugin
 					p.sendMessage(main.prefix + ChatColor.GREEN + "Le plugin a été rechargé !");
+					return true;
 				
 				} else if(args.length != 0) {
 
@@ -43,7 +44,6 @@ public class ReloadCommand implements CommandExecutor {
 				}
 				
 			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
-			return true;
 
 		} else {
 	
@@ -51,6 +51,7 @@ public class ReloadCommand implements CommandExecutor {
 				
 				main.reloadPlugin(); //Recharge le plugin
 				sender.sendMessage(main.prefix + ChatColor.GREEN + "Le plugin a été rechargé !");
+				return true;
 			
 			} else if(args.length != 0) {
 

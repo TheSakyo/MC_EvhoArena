@@ -6,7 +6,6 @@ import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoArena.enums.GState;
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,9 +52,6 @@ public class GDamageListener implements Listener {
 
 		} else {
 
-			//Définit le spawn rouge ou bleu au hasard pour les joueurs Spéctateur
-			Location spawn = main.manager.RandomSpawn();
-
 			if(main.manager.isState(GState.FINISH)) { e.setCancelled(true); return; }
 
 			else if(main.manager.isState(GState.PVP)) {
@@ -66,7 +62,7 @@ public class GDamageListener implements Listener {
 
 					victim.sendMessage(main.prefix + ChatColor.RED + "Vous ne pouvez pas mourir dans le vide !");
 
-					victim.teleport(spawn.add(0.0, 0.2, 0.0));
+					/*victim.teleport(spawn.add(0.0, 0.2, 0.0));*/
 
 					victim.setFallDistance(0);
 
@@ -84,7 +80,7 @@ public class GDamageListener implements Listener {
 
 					victim.sendMessage(main.prefix + ChatColor.RED + "Vous ne pouvez pas mourir dans le vide !");
 
-					victim.teleport(spawn.add(0.0, 0.2, 0.0));
+					/*victim.teleport(spawn.add(0.0, 0.2, 0.0));*/
 
 					victim.setFallDistance(0);
 
