@@ -4,6 +4,7 @@ package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
-import org.bukkit.ChatColor;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -54,7 +54,7 @@ public class SetLobbyCommand implements CommandExecutor {
 
 							new Location(World, X, Y, Z, Yaw, Pitch);
 
-							p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn lobby déjà éxistant ! Essayez '/unsetlobby " + name + "' pour le supprimer et ensuite réessayez");
+							p.sendMessage(main.prefix + ChatFormatting.RED + "Point de spawn lobby déjà éxistant ! Essayez '/unsetlobby " + name + "' pour le supprimer et ensuite réessayez");
 
 						} catch(IllegalArgumentException | NullPointerException e) {
 
@@ -67,18 +67,18 @@ public class SetLobbyCommand implements CommandExecutor {
 
 							ConfigFile.saveConfig(main.config);
 
-							p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn lobby pour la zone de jeu '" + name + "' définit !");
+							p.sendMessage(main.prefix + ChatFormatting.GREEN + "Point de spawn lobby pour la zone de jeu '" + name + "' définit !");
 							return true;
 						}
 
 					} else {
 
-						p.sendMessage(ChatColor.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
+						p.sendMessage(ChatFormatting.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
 					}
 				
-				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setlobby <zoneName>"); }
+				} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /setlobby <zoneName>"); }
 				
-			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
+			} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !"); }
 
 		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définir un spawn lobby !"); }
 		return false;

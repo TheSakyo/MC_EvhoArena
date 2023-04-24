@@ -3,16 +3,13 @@
 package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
+import net.minecraft.ChatFormatting;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
-import org.bukkit.ChatColor;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -35,7 +32,7 @@ public class UnSetLobbyCommand implements CommandExecutor {
 
 			if(!p.hasPermission("evhoarena.lobby")) {
 
-				p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !");
+				p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !");
 				return false;
 			}
 		}
@@ -49,12 +46,12 @@ public class UnSetLobbyCommand implements CommandExecutor {
 				ConfigFile.removeKey(main.config, "lobby." + name);
 				ConfigFile.saveConfig(main.config);
 
-				sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn lobby supprimé pour la zone de jeu '" + name + "' !");
+				sender.sendMessage(main.prefix + ChatFormatting.GREEN + "Point de spawn lobby supprimé pour la zone de jeu '" + name + "' !");
 
-			} catch(Exception e) { sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn lobby pour la zone de jeu '" + name + "' non éxistant !");  }
+			} catch(Exception e) { sender.sendMessage(main.prefix + ChatFormatting.RED + "Point de spawn lobby pour la zone de jeu '" + name + "' non éxistant !");  }
 			return true;
 
-		} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetlobby <zoneName>"); }
+		} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /unsetlobby <zoneName>"); }
 
 		return false;
 	}

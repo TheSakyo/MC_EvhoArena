@@ -13,8 +13,8 @@ import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -172,15 +172,18 @@ public class ArenaManager {
 
 		if(isState(GState.WAITING) || isState(GState.STARTING)) {
 
-			if(main.players.size() == 1) { if(main.players.contains(p)) main.players.remove(p); }
+			if(main.players.size() == 1) {
 
-			if(main.players.size() == 0) TimerAfterPvP();
+				if(main.players.contains(p)) main.players.remove(p);
+			}
+
+			if(main.players.isEmpty()) TimerAfterPvP();
 
 		} else {
 
 			if(main.players.contains(p)) main.players.remove(p);
 			p.setGameMode(GameMode.SPECTATOR);
-			if(killed) p.sendMessage(main.prefix + ChatColor.RED.toString() + ChatColor.BOLD.toString() + "Vous avez perdu !");
+			if(killed) p.sendMessage(main.prefix + ChatFormatting.RED.toString() + ChatFormatting.BOLD.toString() + "Vous avez perdu !");
 
 
 			if(main.players.size() == 1) {
@@ -193,8 +196,7 @@ public class ArenaManager {
 			}
 
 			if(main.manager.isOver(GOver.TRUE)) CheckWin(winner);
-
-			if(main.players.size() == 0) TimerAfterPvP();
+			if(main.players.isEmpty()) TimerAfterPvP();
 		}
 
 	}
@@ -205,9 +207,12 @@ public class ArenaManager {
 	// Vérifie si un joueur a gagné //
 	public void CheckWin(Player p) {
 
-		if(main.players.size() == 0) { setState(GState.FINISH); return; }
+		if(main.players.isEmpty()) {
 
-		else if(main.players.size() == 1) {
+			setState(GState.FINISH);
+			return;
+
+		} else if(main.players.size() == 1) {
 
 			if(main.manager.isOver(GOver.FALSE)) return;
 
@@ -218,14 +223,14 @@ public class ArenaManager {
 
 				if(pls == p && main.players.get(0) == pls) {
 
-					Component title = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Vous avez gagné !");
+					Component title = CustomMethod.StringToComponent(ChatFormatting.GREEN.toString() + ChatFormatting.BOLD.toString() + "Vous avez gagné !");
 					Component subtitle = CustomMethod.StringToComponent("");
-					Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+					Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
 
 					p.showTitle(Title.title(title, subtitle, times));
 
 					p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.5f, 1.5f);
-					p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez tué(s) " + ChatColor.GOLD + main.Kills.get(p.getUniqueId()) + ChatColor.GREEN + " joueur(s) !");
+					p.sendMessage(main.prefix + ChatFormatting.GREEN + "Vous avez tué(s) " + ChatFormatting.GOLD + main.Kills.get(p.getUniqueId()) + ChatFormatting.GREEN + " joueur(s) !");
 
 					//Ajoute les kills au fichier de configuration et le sauvegarde //
 					ConfigFile.set(main.killconfig, p.getUniqueId().toString(), String.valueOf(main.playerKills.get(p.getUniqueId().toString())));
@@ -234,9 +239,9 @@ public class ArenaManager {
 
 				} else {
 
-					Component title = CustomMethod.StringToComponent(ChatColor.GOLD +  "GG à " + ChatColor.YELLOW + p.getName());
-					Component subtitle = CustomMethod.StringToComponent(ChatColor.GOLD + "Il gagne la partie !");
-					Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+					Component title = CustomMethod.StringToComponent(ChatFormatting.GOLD +  "GG à " + ChatFormatting.YELLOW + p.getName());
+					Component subtitle = CustomMethod.StringToComponent(ChatFormatting.GOLD + "Il gagne la partie !");
+					Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
 
 					pls.showTitle(Title.title(title, subtitle, times));
 				}
@@ -260,7 +265,7 @@ public class ArenaManager {
 
 		setState(GState.FINISH);
 
-		Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.RED + " Aucun joueurs gagnent !"));
+		Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.RED + " Aucun joueurs gagnent !"));
 	}
 	// Si le temps d'attente du jeu est finit, et que personne gagnent, on l'affiche. //
 	// On fait aprés appel à la méthode TimerAfterPvP() //
@@ -276,7 +281,7 @@ public class ArenaManager {
 			@Override
 			public void run() {
 
-				if(main.players.size() == 0 || main.players.size() == 1) {
+				if(main.players.isEmpty() || main.players.size() == 1) {
 
 					for(Player pls : Bukkit.getServer().getOnlinePlayers()) { ConnectPlayerToHubServer(pls);}
 				}

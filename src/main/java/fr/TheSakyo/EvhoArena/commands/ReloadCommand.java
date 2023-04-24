@@ -2,7 +2,7 @@
 
 package fr.TheSakyo.EvhoArena.commands;
 
-import org.bukkit.ChatColor;
+import net.minecraft.ChatFormatting;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,27 +35,27 @@ public class ReloadCommand implements CommandExecutor {
 				if(args.length == 0) {
 
 					main.reloadPlugin(); //Recharge le plugin
-					p.sendMessage(main.prefix + ChatColor.GREEN + "Le plugin a été rechargé !");
+					p.sendMessage(main.prefix + ChatFormatting.GREEN + "Le plugin a été rechargé !");
 					return true;
 				
 				} else if(args.length != 0) {
 
-					p.sendMessage(main.prefix + ChatColor.RED + "Essayez /arenareload ou /arenarl sans arguments");
+					p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /arenareload ou /arenarl sans arguments");
 				}
 				
-			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
+			} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !"); }
 
 		} else {
 	
 			if(args.length == 0) {
 				
 				main.reloadPlugin(); //Recharge le plugin
-				sender.sendMessage(main.prefix + ChatColor.GREEN + "Le plugin a été rechargé !");
+				sender.sendMessage(main.prefix + ChatFormatting.GREEN + "Le plugin a été rechargé !");
 				return true;
 			
 			} else if(args.length != 0) {
 
-				sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /arenareload ou /arenarl sans arguments");
+				sender.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /arenareload ou /arenarl sans arguments");
 			}
 		}
 		return false;

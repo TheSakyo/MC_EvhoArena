@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EvhoArena.main.iml" filepath="$PROJECT_DIR$/.idea/modules/EvhoArena.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EvhoArena.test.iml" filepath="$PROJECT_DIR$/.idea/modules/EvhoArena.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fr.TheSakyo.EvhoArena.EvhoArena.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fr.TheSakyo.EvhoArena.EvhoArena.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fr.TheSakyo.EvhoArena.EvhoArena.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fr.TheSakyo.EvhoArena.EvhoArena.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java-workspace.EvhoArena.main.iml" filepath="$PROJECT_DIR$/.idea/modules/java-workspace.EvhoArena.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java-workspace.EvhoArena.test.iml" filepath="$PROJECT_DIR$/.idea/modules/java-workspace.EvhoArena.test.iml" />
+    </modules>
+  </component>
+</project>

@@ -9,7 +9,7 @@ package fr.TheSakyo.EvhoArena.enums;
 /* TYPES D'ÉTATS PARTIE */
 /************************/
 
-public enum GState { WAITING, STARTING, PVP, PLAYING, FINISH; }
+public enum GState { WAITING, STARTING, PVP, PLAYING, FINISH }
 
 /************************/
 /* TYPES D'ÉTATS PARTIE */

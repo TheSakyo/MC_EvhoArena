@@ -3,16 +3,14 @@
 package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
-import org.bukkit.ChatColor;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -36,7 +34,7 @@ public class UnSetGameCommand implements CommandExecutor {
 
 			if(!p.hasPermission("evhoarena.game")) {
 				
-				p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !");
+				p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !");
 				return false;
 			}
 		}
@@ -52,12 +50,12 @@ public class UnSetGameCommand implements CommandExecutor {
 					ConfigFile.removeKey(main.config, "game." + name + "blue");
 					ConfigFile.saveConfig(main.config);
 
-					sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn de la zone de jeu '" + name + "' supprimé pour les " + ChatColor.AQUA + "bleus" + ChatColor.GREEN + " !");
+					sender.sendMessage(main.prefix + ChatFormatting.GREEN + "Point de spawn de la zone de jeu '" + name + "' supprimé pour les " + ChatFormatting.AQUA + "bleus" + ChatFormatting.GREEN + " !");
 					return true;
 
 				} catch(IllegalArgumentException | NullPointerException e) {
 
-					sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn de la zone de jeu '" + name + "' non éxistant pour les " + ChatColor.AQUA + "bleus" + ChatColor.RED + " !");
+					sender.sendMessage(main.prefix + ChatFormatting.RED + "Point de spawn de la zone de jeu '" + name + "' non éxistant pour les " + ChatFormatting.AQUA + "bleus" + ChatFormatting.RED + " !");
 				}
 
 			} else if(args[1].equalsIgnoreCase("red")) {
@@ -67,17 +65,17 @@ public class UnSetGameCommand implements CommandExecutor {
 					ConfigFile.removeKey(main.config, "game." + name + "red");
 					ConfigFile.saveConfig(main.config);
 
-					sender.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn de la zone de jeu '" + name + "' supprimé pour les " + ChatColor.RED + "rouges" + ChatColor.GREEN + " !");
+					sender.sendMessage(main.prefix + ChatFormatting.GREEN + "Point de spawn de la zone de jeu '" + name + "' supprimé pour les " + ChatFormatting.RED + "rouges" + ChatFormatting.GREEN + " !");
 					return true;
 
 				} catch(Exception e) {
 
-					sender.sendMessage(main.prefix + ChatColor.RED + "Point de spawn de la zone de jeu '" + name + "' non éxistant pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.RED + " !");
+					sender.sendMessage(main.prefix + ChatFormatting.RED + "Point de spawn de la zone de jeu '" + name + "' non éxistant pour les " + ChatFormatting.DARK_RED + "rouges" + ChatFormatting.RED + " !");
 				}
 
 			} else { Bukkit.getServer().dispatchCommand(sender, "unsetgame"); return false; }
 
-		} else { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetgame <zoneName>  <blue> ou <red>"); }
+		} else { sender.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /unsetgame <zoneName>  <blue> ou <red>"); }
 
 		return false;
 	}

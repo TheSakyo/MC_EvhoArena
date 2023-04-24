@@ -5,7 +5,7 @@ package fr.TheSakyo.EvhoArena.events;
 import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoArena.enums.GState;
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
-import org.bukkit.ChatColor;
+import net.minecraft.ChatFormatting;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,8 +40,7 @@ public class GDamageListener implements Listener {
 
 				e.setDamage(0);
 
-				victim.sendMessage(main.prefix + ChatColor.RED + "Vous ne pouvez pas mourir dans le vide !");
-
+				victim.sendMessage(main.prefix + ChatFormatting.RED + "Vous ne pouvez pas mourir dans le vide !");
 				victim.teleport(GPlayerListener.loclobby.add(0.0, 0.2, 0.0));
 
 				return;
@@ -60,7 +59,7 @@ public class GDamageListener implements Listener {
 
 					e.setDamage(0);
 
-					victim.sendMessage(main.prefix + ChatColor.RED + "Vous ne pouvez pas mourir dans le vide !");
+					victim.sendMessage(main.prefix + ChatFormatting.RED + "Vous ne pouvez pas mourir dans le vide !");
 
 					/*victim.teleport(spawn.add(0.0, 0.2, 0.0));*/
 
@@ -78,7 +77,7 @@ public class GDamageListener implements Listener {
 
 					e.setDamage(0);
 
-					victim.sendMessage(main.prefix + ChatColor.RED + "Vous ne pouvez pas mourir dans le vide !");
+					victim.sendMessage(main.prefix + ChatFormatting.RED + "Vous ne pouvez pas mourir dans le vide !");
 
 					/*victim.teleport(spawn.add(0.0, 0.2, 0.0));*/
 
@@ -117,7 +116,7 @@ public class GDamageListener implements Listener {
 			//Ajoute les kills au fichier de configuration et le sauvegarde //
 
 			// Message de prévention disant au tueur qu'elle est le joueur tué
-			killer.sendMessage(main.prefix + ChatColor.RED + "Vous avez tué " + ChatColor.YELLOW + victim.getName() + ChatColor.RED + " !");
+			killer.sendMessage(main.prefix + ChatFormatting.RED + "Vous avez tué " + ChatFormatting.YELLOW + victim.getName() + ChatFormatting.RED + " !");
 
 			main.manager.eliminate(victim, true); // Élimine le joueur
 		}

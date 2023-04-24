@@ -6,6 +6,7 @@ import com.google.common.collect.Iterables;
 import fr.TheSakyo.EvhoArena.utils.ScoreBoard;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
+import net.minecraft.ChatFormatting;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -45,14 +46,18 @@ public class GTaskAuto extends BukkitRunnable {
 			for(Player pls : main.manager.getPlayers()) {
 
 				//Annule le mini-jeu si il reste aucun joueur(s)
-				if(main.manager.getPlayers().size() == 0) { cancel(); return; }
+				if(main.manager.getPlayers().isEmpty()) {
+
+					cancel();
+					return;
+				}
 				//Annule le mini-jeu si il reste aucun joueur(s)
 
 
 				//Annule le mini-jeu si il reste qu'un seul joueur
 				if(main.manager.getPlayers().size() == 1) {
 
-					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.RED + "Le mini-jeu compte un seul joueur !"));
+					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.RED + "Le mini-jeu compte un seul joueur !"));
 					main.manager.eliminate(main.manager.getPlayers().get(0), false);
 
 					cancel();
@@ -71,15 +76,15 @@ public class GTaskAuto extends BukkitRunnable {
 
 			if(timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2) {
 
-				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "Lancement du jeu dans " + ChatColor.GREEN + timer + ChatColor.GOLD + " secondes !"));
+				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "Lancement du jeu dans " + ChatFormatting.GREEN + timer + ChatFormatting.GOLD + " secondes !"));
 
 			} else if(timer == 1) {
 
-				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "Lancement du jeu dans " + ChatColor.GREEN + timer + ChatColor.GOLD + " seconde !"));
+				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "Lancement du jeu dans " + ChatFormatting.GREEN + timer + ChatFormatting.GOLD + " seconde !"));
 
 			} else if(timer == 0) {
 
-				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "Lancement du jeu, PVP dans" + ChatColor.GREEN + " 10 " + ChatColor.GOLD + "secondes !"));
+				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "Lancement du jeu, PVP dans" + ChatFormatting.GREEN + " 10 " + ChatFormatting.GOLD + "secondes !"));
 				main.manager.setState(GState.PVP);
 
 				// Pour tous les joueurs en jeu, On vérifie si les spawns de jeu sont pas null et téléporte les joueurs à l'arêne //
@@ -131,7 +136,7 @@ public class GTaskAuto extends BukkitRunnable {
 					//Si le spawn récupéré s'avéré à être null (erreur de configuration), la partie s'annule
 					if(spawn == null) {
 
-						Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.RED + "La partie a été annulé suite à une erreur de configuration ! Contactez un administrateur !"));
+						Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.RED + "La partie a été annulé suite à une erreur de configuration ! Contactez un administrateur !"));
 						main.manager.getPlayers().clear();
 						cancel();
 					}
@@ -161,7 +166,7 @@ public class GTaskAuto extends BukkitRunnable {
 								//Si l'un des spawns jeu s'avéré à être null (erreur de configuration), la partie s'annule
 								if(spawn == null) {
 
-									Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.RED + "La partie a été annulé suite à une erreur de configuration ! Contactez un administrateur !"));
+									Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.RED + "La partie a été annulé suite à une erreur de configuration ! Contactez un administrateur !"));
 
 									main.manager.getPlayers().clear();
 

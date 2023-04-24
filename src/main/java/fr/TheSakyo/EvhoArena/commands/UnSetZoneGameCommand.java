@@ -4,13 +4,13 @@ package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
+import net.minecraft.ChatFormatting;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
-import org.bukkit.ChatColor;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -33,7 +33,7 @@ public class UnSetZoneGameCommand implements CommandExecutor {
 
 			if(!p.hasPermission("evhoarena.zonegame")) {
 
-				p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !");
+				p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !");
 				return false;
 			}
 		}
@@ -49,16 +49,16 @@ public class UnSetZoneGameCommand implements CommandExecutor {
 				ConfigFile.removeKey(main.config, "zone." + name); // Enregistre la zone dans le fichier config
 				ConfigFile.saveConfig(main.config); // Sauvegarde le fichier config
 
-				sender.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez supprimer la zone de jeu '" + name + "' !");
+				sender.sendMessage(main.prefix + ChatFormatting.GREEN + "Vous avez supprimer la zone de jeu '" + name + "' !");
 				return true;
 
 			} else {
 
-				sender.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu '" + name + "' est introuvable !");
+				sender.sendMessage(main.prefix + ChatFormatting.RED + "La zone de jeu '" + name + "' est introuvable !");
 				return false;
 			}
 
-		} else { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /unsetzonegame <zoneName>"); }
+		} else { sender.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /unsetzonegame <zoneName>"); }
 
 		return false;
 	}

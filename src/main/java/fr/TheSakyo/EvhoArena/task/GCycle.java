@@ -5,6 +5,7 @@ package fr.TheSakyo.EvhoArena.task;
 import fr.TheSakyo.EvhoArena.enums.GOver;
 import fr.TheSakyo.EvhoArena.utils.Kits;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
+import net.minecraft.ChatFormatting;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -46,14 +47,18 @@ public class GCycle extends BukkitRunnable {
 			for(int i = 0; i < main.manager.getPlayers().size(); i++) {
 
 				//Annule le mini-jeu si il reste aucun joueur(s)
-				if(main.manager.getPlayers().size() == 0) { cancel(); return; }
+				if(main.manager.getPlayers().isEmpty()) {
+
+					cancel();
+					return;
+				}
 				//Annule le mini-jeu si il reste aucun joueur(s)
 
 
 				//Annule le mini-jeu si il reste qu'un seul joueur
 				if(main.manager.getPlayers().size() == 1 && !main.manager.isState(GState.FINISH) && !main.manager.isOver(GOver.TRUE)) {
 
-					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.RED + "Le mini-jeu compte un seul joueur !"));
+					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.RED + "Le mini-jeu compte un seul joueur !"));
 					main.manager.eliminate(main.manager.getPlayers().get(0), false);
 
 					cancel();
@@ -73,17 +78,17 @@ public class GCycle extends BukkitRunnable {
 
 			if(timerPvP == 5 || timerPvP == 4 || timerPvP == 3 || timerPvP == 2) {
 
-				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "PVP dans " + ChatColor.GREEN + timerPvP + ChatColor.GOLD + " secondes !"));
+				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "PVP dans " + ChatFormatting.GREEN + timerPvP + ChatFormatting.GOLD + " secondes !"));
 
 			} else if(timerPvP == 1) {
 
-				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "PVP dans " + ChatColor.GREEN + timerPvP + ChatColor.GOLD + " seconde !"));
+				Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "PVP dans " + ChatFormatting.GREEN + timerPvP + ChatFormatting.GOLD + " seconde !"));
 
 			} else if(timerPvP == 0) {
 
 				if(main.manager.isState(GState.PVP)) {
 
-					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "PVP Activé !"));
+					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "PVP Activé !"));
 
 					final Kits kit = Kits.randomKits(); // Récupère un kit aléatoirement
 
@@ -104,15 +109,15 @@ public class GCycle extends BukkitRunnable {
 
 				if(timer == 30 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2) {
 
-					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "Fin du jeu dans " + ChatColor.GREEN + timer + ChatColor.GOLD + " secondes !"));
+					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "Fin du jeu dans " + ChatFormatting.GREEN + timer + ChatFormatting.GOLD + " secondes !"));
 
 				} else if(timer == 1) {
 
-					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "Fin du jeu dans " + ChatColor.GREEN + timer + ChatColor.GOLD + " seconde !"));
+					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "Fin du jeu dans " + ChatFormatting.GREEN + timer + ChatFormatting.GOLD + " seconde !"));
 
 				} else if(timer == 0) {
 
-					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatColor.GOLD + "Fin du jeu ! Temps écoulé !"));
+					Bukkit.getServer().broadcast(CustomMethod.StringToComponent(main.prefix + ChatFormatting.GOLD + "Fin du jeu ! Temps écoulé !"));
 					main.manager.setState(GState.FINISH);
 
 					//Fin du jeu, si le temps est écoulé (temps trop long) //

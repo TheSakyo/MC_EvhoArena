@@ -15,8 +15,8 @@ import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -74,7 +74,7 @@ public class ArenaMain extends JavaPlugin {
 
 	
 	// Variable pour le Nom du Plugin //
-	public String prefix = ChatColor.WHITE + "[" + ChatColor.GREEN + "Evho" + ChatColor.YELLOW + "Arena" + ChatColor.WHITE + "]" + " ";
+	public String prefix = ChatFormatting.WHITE + "[" + ChatFormatting.GREEN + "Evho" + ChatFormatting.YELLOW + "Arena" + ChatFormatting.WHITE + "]" + " ";
 	// Variable pour le Nom du Plugin //
 		
 	
@@ -151,15 +151,15 @@ public class ArenaMain extends JavaPlugin {
 		   RegisterEvents.init(this, pm); // Initialise les évènements
 		   RegisterCommands.init(this); // Initialise les commandes
 
-		   console.sendMessage(prefix + ChatColor.GREEN + "ArenaGame Enabled"); //Message disant que le plugin est activé
+		   console.sendMessage(prefix + ChatFormatting.GREEN + "ArenaGame Enabled"); //Message disant que le plugin est activé
 		   manager.randomSpawn();
 
 	   } else {
 			   
 		   //  ⬇️ Demande le plugin "EvhoUtility" pour le fonctionnement du plugin ⬇️ //
 		   console.sendMessage("");
-		   console.sendMessage(prefix + ChatColor.RED + "Veuillez nous excuser, ce plugin requiert un plugin spécifique !");
-		   console.sendMessage(prefix + ChatColor.RED + "Le plugin est le suivant : " + ChatColor.YELLOW + "EvhoUtility");
+		   console.sendMessage(prefix + ChatFormatting.RED + "Veuillez nous excuser, ce plugin requiert un plugin spécifique !");
+		   console.sendMessage(prefix + ChatFormatting.RED + "Le plugin est le suivant : " + ChatFormatting.YELLOW + "EvhoUtility");
 		   console.sendMessage("");
 		   // ⬆️ Demande le plugin "EvhoUtility" pour le fonctionnement du plugin ⬆️ //
 
@@ -176,7 +176,7 @@ public class ArenaMain extends JavaPlugin {
 
 		this.disable(); //Petite méthode pour la désactivation du Plugin
 
-		console.sendMessage(prefix + ChatColor.DARK_RED + "ArenaGame Disabled"); //Message disant que le plugin est désactivé
+		console.sendMessage(prefix + ChatFormatting.DARK_RED + "ArenaGame Disabled"); //Message disant que le plugin est désactivé
 	}
 	/* Désactivation du plugin */
 
@@ -187,9 +187,9 @@ public class ArenaMain extends JavaPlugin {
 		// ⬇️ Pour tous les joueurs en ligne, on leurs affichent un message flottant et on les déconnectes du serveur ⬇️ //
 		for(Player players : Bukkit.getServer().getOnlinePlayers()) {
 
-			Component title = CustomMethod.StringToComponent(ChatColor.GOLD + "Le Mini-Jeu a été arrété...");
-			Component subtitle = CustomMethod.StringToComponent(ChatColor.RED + "Retour au Hub...");
-			Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+			Component title = CustomMethod.StringToComponent(ChatFormatting.GOLD + "Le Mini-Jeu a été arrété...");
+			Component subtitle = CustomMethod.StringToComponent(ChatFormatting.RED + "Retour au Hub...");
+			Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
 
 			players.showTitle(Title.title(title, subtitle, times));
 			manager.ConnectPlayerToHubServer(players);

@@ -6,7 +6,7 @@ import fr.TheSakyo.EvhoArena.enums.GState;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
-import org.bukkit.ChatColor;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -43,8 +43,8 @@ public class GWaiting extends BukkitRunnable {
 					if(timer > 20) {
 
 						Component title = CustomMethod.StringToComponent(" ");
-						Component subtitle = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Attente de joueur(s)...");
-						Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
+						Component subtitle = CustomMethod.StringToComponent(ChatFormatting.GREEN.toString() + ChatFormatting.BOLD.toString() + "Attente de joueur(s)...");
+						Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
 
 						pls.showTitle(Title.title(title, subtitle, times));
 						pls.setLevel(0);
@@ -53,9 +53,9 @@ public class GWaiting extends BukkitRunnable {
 
 						if(timer == 20) {
 
-							Component title = CustomMethod.StringToComponent(ChatColor.GREEN.toString() + ChatColor.BOLD.toString() + "Attente de joueur(s)...");
-							Component subtitle = CustomMethod.StringToComponent(ChatColor.GOLD + "Le jeu va bientôt commencé !");
-							Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+							Component title = CustomMethod.StringToComponent(ChatFormatting.GREEN.toString() + ChatFormatting.BOLD.toString() + "Attente de joueur(s)...");
+							Component subtitle = CustomMethod.StringToComponent(ChatFormatting.GOLD + "Le jeu va bientôt commencé !");
+							Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
 
 							pls.showTitle(Title.title(title, subtitle, times));
 						}
@@ -66,9 +66,9 @@ public class GWaiting extends BukkitRunnable {
 						if(timer != 1 && timer <= 3) pls.playSound(pls.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 1f, 1f);
 						else if(timer == 1) {
 
-							Component title = CustomMethod.StringToComponent(ChatColor.GOLD + "Lancement du Jeu...");
-							Component subtitle = CustomMethod.StringToComponent(ChatColor.RED + "Attente de Joueur(s) désactivé !");
-							Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
+							Component title = CustomMethod.StringToComponent(ChatFormatting.GOLD + "Lancement du Jeu...");
+							Component subtitle = CustomMethod.StringToComponent(ChatFormatting.RED + "Attente de Joueur(s) désactivé !");
+							Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(2), Duration.ofSeconds(2));
 
 							pls.playSound(pls.getLocation(), Sound.BLOCK_BELL_USE, 1f, 1f);
 							pls.showTitle(Title.title(title, subtitle, times));
@@ -95,7 +95,7 @@ public class GWaiting extends BukkitRunnable {
 			}
 									/* --------------------------------------------------------- */
 
-			if(main.manager.getPlayers().size() == 0) { cancel(); }
+			if(main.manager.getPlayers().isEmpty()) { cancel(); }
 			else if(main.manager.getPlayers().size() <= 1) { timer = 60; }
 		}
 	}

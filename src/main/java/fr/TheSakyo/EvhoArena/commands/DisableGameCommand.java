@@ -4,8 +4,8 @@ import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,9 +23,8 @@ public class DisableGameCommand implements CommandExecutor {
 
 
     private Component title = CustomMethod.StringToComponent(" ");
-    private Component subtitle = CustomMethod.StringToComponent(ChatColor.RED.toString() + ChatColor.BOLD.toString() + "Mini-Jeu Désactivé !");
-    private Title.Times times = Title.Times.of(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
-
+    private Component subtitle = CustomMethod.StringToComponent(ChatFormatting.RED.toString() + ChatFormatting.BOLD.toString() + "Mini-Jeu Désactivé !");
+    private Title.Times times = Title.Times.times(Duration.ofSeconds(2), Duration.ofSeconds(4), Duration.ofSeconds(2));
 
 
 	/**********************************************************/
@@ -44,26 +43,26 @@ public class DisableGameCommand implements CommandExecutor {
 					if(!main.manager.isDisabled()) {
 
 						main.manager.isDisabled(true); //Active le Mini-Jeux
-						p.sendMessage(main.prefix + ChatColor.GREEN + "Le mini-jeu a été désactivé !");
+						p.sendMessage(main.prefix + ChatFormatting.GREEN + "Le mini-jeu a été désactivé !");
 						Bukkit.getServer().getOnlinePlayers().forEach(player -> player.showTitle(Title.title(title, subtitle, times)));
 						return true;
 
-					} else { p.sendMessage(main.prefix + ChatColor.RED + "Le mini-jeu n'est pas activé !"); }
+					} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Le mini-jeu n'est pas activé !"); }
 
-				} else if(args.length != 0) { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /disablegame sans arguments"); }
+				} else if(args.length != 0) { p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /disablegame sans arguments"); }
 
-			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
+			} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !"); }
 
 		} else {
 
 			if(args.length == 0) {
 
                 main.manager.isDisabled(true); //Active le Mini-Jeux
-                sender.sendMessage(main.prefix + ChatColor.GREEN + "Le mini-jeu a été désactivé !");
+                sender.sendMessage(main.prefix + ChatFormatting.GREEN + "Le mini-jeu a été désactivé !");
                 Bukkit.getServer().getOnlinePlayers().forEach(player -> player.showTitle(Title.title(title, subtitle, times)));
 				return true;
 
-			} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /disablegame sans arguments"); }
+			} else if(args.length != 0) { sender.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /disablegame sans arguments"); }
 		}
 
 		return false;

@@ -5,6 +5,7 @@ package fr.TheSakyo.EvhoArena.events;
 import fr.TheSakyo.EvhoArena.utils.ScoreBoard;
 import fr.TheSakyo.EvhoArena.config.ConfigFileManager;
 import fr.TheSakyo.EvhoUtility.managers.ScoreboardManager;
+import net.minecraft.ChatFormatting;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
@@ -77,15 +78,15 @@ public class GPlayerListener implements Listener {
 			p.setFoodLevel(20);
 			p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
 
-			p.sendMessage(main.prefix + ChatColor.AQUA + "/hub ou /lobby pour retourner au hub !");
+			p.sendMessage(main.prefix + ChatFormatting.AQUA + "/hub ou /lobby pour retourner au hub !");
 
-			p.sendMessage(main.prefix + ChatColor.AQUA + "PvPArena chacun pour soi ! Créez vous des alliances et/ou trahisez vous !");
+			p.sendMessage(main.prefix + ChatFormatting.AQUA + "PvPArena chacun pour soi ! Créez vous des alliances et/ou trahisez vous !");
 
 			if(!main.manager.isState(GState.WAITING)) {
 
 				p.setGameMode(GameMode.SPECTATOR);
 
-				if(main.manager.isState(GState.STARTING)) { p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu est en cours de démarrage ! ");  } else { p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu a déjà démarré ! "); }
+				if(main.manager.isState(GState.STARTING)) { p.sendMessage(main.prefix + ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC.toString() + "Le jeu est en cours de démarrage ! ");  } else { p.sendMessage(main.prefix + ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC.toString() + "Le jeu a déjà démarré ! "); }
 
 				return;
 			}
@@ -101,7 +102,7 @@ public class GPlayerListener implements Listener {
 
 		} catch(IllegalArgumentException ex) {
 
-			String error = ChatColor.RED + "Point de spawn lobby non éxistant, Erreur de Configuration ! \n Si vous n'êtes pas administrateur, veuillez demander à un administrateur de le définir !";
+			String error = ChatFormatting.RED + "Point de spawn lobby non éxistant, Erreur de Configuration ! \n Si vous n'êtes pas administrateur, veuillez demander à un administrateur de le définir !";
 			p.sendMessage(main.prefix + error);
 		}
 		// ** ⬆️ Essaye de vérifier si le spawn lobby est définit pour téléporter le joueur où il faut ⬆️ ** //
@@ -114,7 +115,7 @@ public class GPlayerListener implements Listener {
 
 		if(main.manager.isDisabled()) {
 
-			p.sendMessage(main.prefix + ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() + "Le jeu actuellement désactivé ! ");
+			p.sendMessage(main.prefix + ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC.toString() + "Le jeu actuellement désactivé ! ");
 		}
 
 	}

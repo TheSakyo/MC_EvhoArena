@@ -5,7 +5,7 @@ package fr.TheSakyo.EvhoArena.events;
 import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoArena.enums.GState;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
-import org.bukkit.ChatColor;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -47,8 +47,8 @@ public class GInventoryListener implements Listener {
         bed = new ItemStack(Material.PURPLE_BED);
         ItemMeta metabed = bed.getItemMeta();
 
-        metabed.displayName(CustomMethod.StringToComponent(ChatColor.GREEN + "Retour Hub/Lobby"));
-        metabed.lore(List.of(CustomMethod.StringToComponent(ChatColor.GRAY + "Cliquez sur cet item pour quittez la partie !")));
+        metabed.displayName(CustomMethod.StringToComponent(ChatFormatting.GREEN + "Retour Hub/Lobby"));
+        metabed.lore(List.of(CustomMethod.StringToComponent(ChatFormatting.GRAY + "Cliquez sur cet item pour quittez la partie !")));
 
         bed.setItemMeta(metabed);
 

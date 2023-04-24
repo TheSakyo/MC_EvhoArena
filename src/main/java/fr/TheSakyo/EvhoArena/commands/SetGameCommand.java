@@ -4,6 +4,7 @@ package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
-import org.bukkit.ChatColor;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -56,7 +56,7 @@ public class SetGameCommand implements CommandExecutor {
 
 								new Location(BlueWorld, BlueX, BlueY, BlueZ, BlueYaw, BluePitch);
 
-								p.sendMessage(main.prefix + ChatColor.RED + "Point de spawn de la zone de jeu '" + name + "' déjà éxistant pour les " + ChatColor.AQUA + "bleus" + ChatColor.RED +  " ! Essayez '/unsetgame " + name + " blue' pour le supprimer et ensuite réessayez");
+								p.sendMessage(main.prefix + ChatFormatting.RED + "Point de spawn de la zone de jeu '" + name + "' déjà éxistant pour les " + ChatFormatting.AQUA + "bleus" + ChatFormatting.RED +  " ! Essayez '/unsetgame " + name + " blue' pour le supprimer et ensuite réessayez");
 
 							} catch(IllegalArgumentException | NullPointerException e) {
 
@@ -67,7 +67,7 @@ public class SetGameCommand implements CommandExecutor {
 								ConfigFile.set(main.config, "game." + name + ".blue.Yaw", p.getLocation().getYaw() + "f");
 								ConfigFile.set(main.config, "game." + name + ".blue.Pitch", p.getLocation().getPitch() + "f");
 
-								p.sendMessage(main.prefix + ChatColor.GREEN + "Point de spawn de la zone de jeu '" + name + "' définit pour les " + ChatColor.AQUA + "bleus" + ChatColor.GREEN + " !");
+								p.sendMessage(main.prefix + ChatFormatting.GREEN + "Point de spawn de la zone de jeu '" + name + "' définit pour les " + ChatFormatting.AQUA + "bleus" + ChatFormatting.GREEN + " !");
 
 								ConfigFile.saveConfig(main.config);
 								return true;
@@ -75,7 +75,7 @@ public class SetGameCommand implements CommandExecutor {
 
 						} else {
 
-							p.sendMessage(ChatColor.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
+							p.sendMessage(ChatFormatting.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
 						}
 
 					} else if(args[1].equalsIgnoreCase("red")) {
@@ -94,7 +94,7 @@ public class SetGameCommand implements CommandExecutor {
 
 								new Location(RedWorld, RedX, RedY, RedZ, RedYaw, RedPitch);
 
-								p.sendMessage(main.prefix + ChatColor.RED + "Point spawn de la zone de jeu '" + name + "' déjà éxistant pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.RED +  " ! Essayez '/unsetgame "  + name +  " red' pour le supprimer et ensuite réessayez");
+								p.sendMessage(main.prefix + ChatFormatting.RED + "Point spawn de la zone de jeu '" + name + "' déjà éxistant pour les " + ChatFormatting.DARK_RED + "rouges" + ChatFormatting.RED +  " ! Essayez '/unsetgame "  + name +  " red' pour le supprimer et ensuite réessayez");
 
 							} catch(IllegalArgumentException | NullPointerException e) {
 
@@ -105,7 +105,7 @@ public class SetGameCommand implements CommandExecutor {
 								ConfigFile.set(main.config, "game." + name + ".red.Yaw", p.getLocation().getYaw() + "f");
 								ConfigFile.set(main.config, "game." + name + ".red.Pitch", p.getLocation().getPitch() + "f");
 
-								p.sendMessage(main.prefix + ChatColor.GREEN + "Point spawn de la zone de jeu '" + name + "' définit pour les " + ChatColor.DARK_RED + "rouges" + ChatColor.GREEN + " !");
+								p.sendMessage(main.prefix + ChatFormatting.GREEN + "Point spawn de la zone de jeu '" + name + "' définit pour les " + ChatFormatting.DARK_RED + "rouges" + ChatFormatting.GREEN + " !");
 
 								ConfigFile.saveConfig(main.config);
 								return true;
@@ -113,14 +113,14 @@ public class SetGameCommand implements CommandExecutor {
 
 						} else {
 
-							p.sendMessage(ChatColor.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
+							p.sendMessage(ChatFormatting.RED + "La zone de jeu '" + name + "' est introuvable veuillez d'abord la définir avec /setzonegame <zoneName> <pos1> ou <pos2>");
 						}
 
 					} else { Bukkit.getServer().dispatchCommand(sender, "setgame"); return true; }
 
-				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setgame <zoneName>"); }
+				} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /setgame <zoneName>"); }
 
-			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
+			} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !"); }
 
 		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définir un spawn de jeu !"); }
 		return false;

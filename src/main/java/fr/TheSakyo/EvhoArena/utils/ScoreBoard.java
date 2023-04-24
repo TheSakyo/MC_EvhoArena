@@ -5,7 +5,7 @@ package fr.TheSakyo.EvhoArena.utils;
 import fr.TheSakyo.EvhoArena.ArenaMain;
 import fr.TheSakyo.EvhoUtility.managers.ScoreboardManager;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
-import org.bukkit.ChatColor;
+import net.minecraft.ChatFormatting;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
@@ -20,7 +20,7 @@ public class ScoreBoard {
 
 
 	// Titre du Scoreboard //
-	String boardname = ArenaMain.instance.prefix.replace(ChatColor.WHITE + "[", "").replace(ChatColor.WHITE +  "]", "");
+	String boardname = ArenaMain.instance.prefix.replace(ChatFormatting.WHITE + "[", "").replace(ChatFormatting.WHITE +  "]", "");
 	// Titre du Scoreboard //
 
 
@@ -46,43 +46,43 @@ public class ScoreBoard {
 	private void updateScoreBoard(Player p, Objective sidebar, Scoreboard board) {
 
 		// Variables différentes codes couleurs tchat pour le titre du scoreboard //
-		String RB = ChatColor.RED.toString() + ChatColor.BOLD.toString();
+		String RB = ChatFormatting.RED.toString() + ChatFormatting.BOLD.toString();
 
-		String WB = ChatColor.WHITE.toString() + ChatColor.BOLD.toString();
+		String WB = ChatFormatting.WHITE.toString() + ChatFormatting.BOLD.toString();
 		// Variables différentes codes couleurs tchat pour le titre du scoreboard //
 
 
 		sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
-		sidebar.displayName(CustomMethod.StringToComponent(WB + "» » » " + ChatColor.RESET + boardname + WB + "« « «"));
-		/* sidebar.setDisplayName(WB + "» » » " + ChatColor.RESET + boardname + RB + " " + WB + " « « «"); */
+		sidebar.displayName(CustomMethod.StringToComponent(WB + "» » » " + ChatFormatting.RESET + boardname + WB + "« « «"));
+		/* sidebar.setDisplayName(WB + "» » » " + ChatFormatting.RESET + boardname + RB + " " + WB + " « « «"); */
 
-		Score line8 = sidebar.getScore(ChatColor.BLACK + " ");
+		Score line8 = sidebar.getScore(ChatFormatting.BLACK + " ");
 		line8.setScore(8);
 
 
 		Team line7 = board.registerNewTeam("Onlines");
-		line7.addEntry(ChatColor.DARK_GREEN.toString());
-		line7.prefix(CustomMethod.StringToComponent(ChatColor.GREEN + "Nombre(s) de joueur(s) " + ChatColor.WHITE + ": "));
-		line7.suffix(CustomMethod.StringToComponent(ChatColor.YELLOW.toString() + main.manager.getPlayers().size()));
-		sidebar.getScore(ChatColor.DARK_GREEN.toString()).setScore(7);
+		line7.addEntry(ChatFormatting.DARK_GREEN.toString());
+		line7.prefix(CustomMethod.StringToComponent(ChatFormatting.GREEN + "Nombre(s) de joueur(s) " + ChatFormatting.WHITE + ": "));
+		line7.suffix(CustomMethod.StringToComponent(ChatFormatting.YELLOW.toString() + main.manager.getPlayers().size()));
+		sidebar.getScore(ChatFormatting.DARK_GREEN.toString()).setScore(7);
 
-		Score line6 = sidebar.getScore(ChatColor.DARK_GRAY + " ");
+		Score line6 = sidebar.getScore(ChatFormatting.DARK_GRAY + " ");
 		line6.setScore(6);
 
-		Score line5 = sidebar.getScore(ChatColor.GRAY + " ");
+		Score line5 = sidebar.getScore(ChatFormatting.GRAY + " ");
 		line5.setScore(5);
 
-		Score line4 = sidebar.getScore(ChatColor.AQUA.toString() + ChatColor.UNDERLINE.toString()  + "Statistique Du Classement :");
+		Score line4 = sidebar.getScore(ChatFormatting.AQUA.toString() + ChatFormatting.UNDERLINE.toString()  + "Statistique Du Classement :");
 		line4.setScore(4);
 
-		Score line3 = sidebar.getScore(ChatColor.WHITE + " ");
+		Score line3 = sidebar.getScore(ChatFormatting.WHITE + " ");
 		line3.setScore(3);
 
 		Team line2 = board.registerNewTeam("Kills");
-		line2.addEntry(ChatColor.DARK_PURPLE.toString());
-		line2.prefix(CustomMethod.StringToComponent(ChatColor.GOLD + "Joueur(s) Tué(s) " + ChatColor.WHITE + ": "));
-		line2.suffix(CustomMethod.StringToComponent(ChatColor.RED.toString() + main.playerKills.get(p.getUniqueId().toString())));
-		sidebar.getScore(ChatColor.DARK_PURPLE.toString()).setScore(2);
+		line2.addEntry(ChatFormatting.DARK_PURPLE.toString());
+		line2.prefix(CustomMethod.StringToComponent(ChatFormatting.GOLD + "Joueur(s) Tué(s) " + ChatFormatting.WHITE + ": "));
+		line2.suffix(CustomMethod.StringToComponent(ChatFormatting.RED.toString() + main.playerKills.get(p.getUniqueId().toString())));
+		sidebar.getScore(ChatFormatting.DARK_PURPLE.toString()).setScore(2);
 
 		Score line1 = sidebar.getScore(" ");
 		line1.setScore(1);
@@ -103,14 +103,14 @@ public class ScoreBoard {
 
 		if(sideboard == true) {
 
-			Objective obj_sidebar = board.registerNewObjective("gameboard", "dummy", CustomMethod.StringToComponent(" "));
+			Objective obj_sidebar = board.registerNewObjective("gameboard", Criteria.DUMMY, CustomMethod.StringToComponent(" "));
 
 			updateScoreBoard(p, obj_sidebar, board);
 		}
 
 		if(heart == true) {
 
-			Objective obj_heart = board.registerNewObjective("showhealth", Criterias.HEALTH, CustomMethod.StringToComponent(ChatColor.DARK_RED + "❤"));
+			Objective obj_heart = board.registerNewObjective("showhealth", Criteria.HEALTH, CustomMethod.StringToComponent(ChatFormatting.DARK_RED + "❤"));
 			obj_heart.setDisplaySlot(DisplaySlot.BELOW_NAME);
 			obj_heart.setRenderType(RenderType.HEARTS);
 
@@ -134,8 +134,8 @@ public class ScoreBoard {
 
 		Scoreboard board = ScoreboardManager.getScoreboard(p);
 
-		if(board.getTeam("Onlines") != null) board.getTeam("Onlines").suffix(CustomMethod.StringToComponent(ChatColor.YELLOW.toString() + main.manager.getPlayers().size()));
-		if(board.getTeam("Kills") != null) board.getTeam("Kills").suffix(CustomMethod.StringToComponent(ChatColor.RED.toString() + main.playerKills.get(p.getUniqueId().toString())));
+		if(board.getTeam("Onlines") != null) board.getTeam("Onlines").suffix(CustomMethod.StringToComponent(ChatFormatting.YELLOW.toString() + main.manager.getPlayers().size()));
+		if(board.getTeam("Kills") != null) board.getTeam("Kills").suffix(CustomMethod.StringToComponent(ChatFormatting.RED.toString() + main.playerKills.get(p.getUniqueId().toString())));
 	}
 	//Méthode pour actualiser le scoreboard //
 }

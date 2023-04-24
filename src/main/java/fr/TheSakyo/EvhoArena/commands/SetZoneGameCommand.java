@@ -4,6 +4,7 @@ package fr.TheSakyo.EvhoArena.commands;
 
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.managers.ZoneManager;
+import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.TheSakyo.EvhoArena.ArenaMain;
-import org.bukkit.ChatColor;
 
 /* PARTIE IMPORTATIONS + PACKAGE DE LA CLASS */
 
@@ -45,14 +45,14 @@ public class SetZoneGameCommand implements CommandExecutor {
 
                         if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-                            p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu '" + name + "' éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatColor.GOLD + "/unsetzonegame " + name + ChatColor.RED + "' !");
+                            p.sendMessage(main.prefix + ChatFormatting.RED + "La zone de jeu '" + name + "' éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatFormatting.GOLD + "/unsetzonegame " + name + ChatFormatting.RED + "' !");
                             return false;
 
                         } else {
 
                             if(location == null) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu '" + name + "' !");
+                                p.sendMessage(main.prefix + ChatFormatting.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu '" + name + "' !");
                                 return false;
                             }
 
@@ -63,15 +63,15 @@ public class SetZoneGameCommand implements CommandExecutor {
                             ConfigFile.set(main.config, "zone." + name, true); // Enregistre la zone dans le fichier config
 				            ConfigFile.saveConfig(main.config); // Sauvegarde le fichier config
 
-                            p.sendMessage(main.prefix + ChatColor.GREEN + "La zone de jeu a été créer !");
+                            p.sendMessage(main.prefix + ChatFormatting.GREEN + "La zone de jeu a été créer !");
 
                                                                         /* ---------------------------------------------- */
 
                             ZoneManager.setWorld(name, location.getWorld().getName());
                             ZoneManager.setFirstPos(name, location.getX(), location.getY(), location.getZ());
 
-                            p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la première position de la zone de jeu '" + name + "', vous pouvez faire de même '" +
-                                         ChatColor.GRAY.toString() + ChatColor.ITALIC.toString() +  "<pos2>" + ChatColor.GREEN + "' pour la deuxième position de la région !");
+                            p.sendMessage(main.prefix + ChatFormatting.GREEN + "Vous avez définit la première position de la zone de jeu '" + name + "', vous pouvez faire de même '" +
+                                         ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC.toString() +  "<pos2>" + ChatFormatting.GREEN + "' pour la deuxième position de la région !");
 
                             return true;
 
@@ -81,7 +81,7 @@ public class SetZoneGameCommand implements CommandExecutor {
 
                         if(ZoneManager.isExist(name) && ZoneManager.hasRegion(name)) {
 
-                            p.sendMessage(main.prefix + ChatColor.RED + "La zone de jeu '" + name + "' éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatColor.GOLD + "/unsetzonegame" + name +  ChatColor.RED + "' !");
+                            p.sendMessage(main.prefix + ChatFormatting.RED + "La zone de jeu '" + name + "' éxiste déjà, vous pouvez toujours la supprimer pour la commande fonctionne de nouveau " + ChatFormatting.GOLD + "/unsetzonegame" + name +  ChatFormatting.RED + "' !");
 
                         } else {
 
@@ -90,34 +90,34 @@ public class SetZoneGameCommand implements CommandExecutor {
 
                             if(location == null) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu '" + name + "' !");
+                                p.sendMessage(main.prefix + ChatFormatting.RED + "Une erreur est survenue à la définition de la première position de la zone de jeu '" + name + "' !");
                                 return false;
                             }
 
                             if(firstPos == null) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu '" + name + "' n'est pas définit, veuillez d'abord la définir !");
+                                p.sendMessage(main.prefix + ChatFormatting.RED + "La première position de la zone de jeu '" + name + "' n'est pas définit, veuillez d'abord la définir !");
                                 return false;
                             }
 
                             if(firstPos.getWorld() != world && location.getWorld() != world) {
 
-                                p.sendMessage(main.prefix + ChatColor.RED + "La première position de la zone de jeu '" + name + "' n'est pas dans le monde où vous êtes, veuillez aller dans le monde '" + world.getName() + "' !");
+                                p.sendMessage(main.prefix + ChatFormatting.RED + "La première position de la zone de jeu '" + name + "' n'est pas dans le monde où vous êtes, veuillez aller dans le monde '" + world.getName() + "' !");
                                 return false;
                             }
 
                             ZoneManager.setWorld(name, firstPos.getWorld().getName()); // Redéfinit le monde de la zone
                             ZoneManager.setSecondPos(name, location.getX(), location.getY(), location.getZ()); // Définit la deuxième position de la zone de jeu
 
-                            p.sendMessage(main.prefix + ChatColor.GREEN + "Vous avez définit la deuxième position de la zone de jeu '" + name + "', la région à donc été créer !");
+                            p.sendMessage(main.prefix + ChatFormatting.GREEN + "Vous avez définit la deuxième position de la zone de jeu '" + name + "', la région à donc été créer !");
                             return true;
                         }
 
 					} else { Bukkit.getServer().dispatchCommand(sender, "setzonegame"); return true; }
 
-				} else { p.sendMessage(main.prefix + ChatColor.RED + "Essayez /setzonegame <zoneName> <pos1> ou <pos2>"); }
+				} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /setzonegame <zoneName> <pos1> ou <pos2>"); }
 
-			} else { p.sendMessage(main.prefix + ChatColor.RED + "Vous n'avez pas les permissions requises !"); }
+			} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !"); }
 
 		} else { sender.sendMessage(main.prefix + "Vous devez être en jeu pour définir une zone de jeu !"); }
 		return false;
