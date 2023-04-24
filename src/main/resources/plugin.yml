@@ -31,6 +31,10 @@ commands:
      description: Commande pour définir la zone de jeu (EvhoArena)
 
 
+   listlobby:
+     description: Commande pour afficher la listes des lobby (EvhoArena)
+
+
    unsetlobby:
      description: Commande pour retirer le point de spawn lobby (EvhoArena)
 

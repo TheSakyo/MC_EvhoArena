@@ -163,6 +163,7 @@ public class ArenaMain extends JavaPlugin {
 		   this.getCommand("setzonegame").setExecutor((CommandExecutor)new SetZoneGameCommand(this)); //Commande pour la création de la zone de jeu de l'arêne
 		   /*this.getCommand("setgame").setExecutor((CommandExecutor)new SetGameCommand(this)); //Commande pour la création du point de spawn de l'arêne*/
 
+		   this.getCommand("listlobby").setExecutor((CommandExecutor)new ListLobbyCommand(this)); //Commande pour afficher la liste des points de spawn lobby
 
 		   this.getCommand("disablegame").setExecutor((CommandExecutor)new DisableGameCommand(this)); //Commande pour désactiver le mini-jeux
 		   this.getCommand("unsetlobby").setExecutor((CommandExecutor)new UnSetLobbyCommand(this)); //Commande pour l'annulation du point de spawn lobby
