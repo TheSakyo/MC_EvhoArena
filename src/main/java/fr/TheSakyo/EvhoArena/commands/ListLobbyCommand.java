@@ -6,6 +6,7 @@ import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -60,16 +61,25 @@ public class ListLobbyCommand implements CommandExecutor {
 
 						/* --------------------------------------------- */
 
-					String lobbyName = ChatColor.GOLD.toString() + ChatColor.BOLD.toString() + lobbyZone;
+                    String gameName = ChatColor.GOLD.toString() + ChatColor.BOLD.toString() + lobbyZone;
+                    sender.sendMessage(" ");
 
-					Component componentName = CustomMethod.StringToComponent(lobbyName);
-					componentName = componentName.clickEvent(ClickEvent.runCommand("/tp " + String.valueOf(x) + " " + String.valueOf(y) +  " " + String.valueOf(z)));
-					componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent("Cliquez pour vous y téléporter (vous devez être dans même monde que le lobby)")));
+                    if(sender instanceof Player p) {
 
-						/* --------------------------------------------- */
+                        Component componentName = CustomMethod.StringToComponent(gameName);
 
-					sender.sendMessage(" ");
-					sender.sendMessage(ChatColor.WHITE + "- " + lobbyName);
+                        if(p.getWorld() == Bukkit.getServer().getWorld("evholobby")) {
+
+                            componentName = componentName.clickEvent(ClickEvent.runCommand("/tp " + String.valueOf(x) + " " + String.valueOf(y) +  " " + String.valueOf(z)));
+                            componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Cliquez pour vous y téléporter")));
+
+                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Vous pouvez vous téléporter que si vous ête dans le monde 'evholobby'"))); }
+
+                            /* --------------------------------------------- */
+
+                        sender.sendMessage(ChatColor.WHITE + "- " + componentName);
+
+                    } else { sender.sendMessage(ChatColor.WHITE + "- " + gameName); }
                 }
 
 			} catch(Exception e) { sender.sendMessage(main.prefix + ChatColor.RED + "Il y a aucun point de spawn lobby actuellement !");  }
