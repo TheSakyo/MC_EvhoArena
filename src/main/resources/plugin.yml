@@ -33,6 +33,8 @@ commands:
 
    listlobby:
      description: Commande pour afficher la listes des lobby (EvhoArena)
+   listgame:
+     description: Commande pour afficher la listes des arênes (EvhoArena)
 
 
    unsetlobby:

@@ -7,6 +7,8 @@ import java.util.*;
 
 import fr.TheSakyo.EvhoArena.enums.GOver;
 import fr.TheSakyo.EvhoArena.enums.GState;
+import fr.TheSakyo.EvhoArena.registering.RegisterCommands;
+import fr.TheSakyo.EvhoArena.registering.RegisterEvents;
 import fr.TheSakyo.EvhoArena.utils.MethodCustom;
 import fr.TheSakyo.EvhoArena.utils.ScoreBoard;
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
@@ -15,9 +17,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -25,8 +25,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-import fr.TheSakyo.EvhoArena.commands.*;
-import fr.TheSakyo.EvhoArena.events.*;
 import fr.TheSakyo.EvhoUtility.UtilityMain;
 import fr.TheSakyo.EvhoArena.config.ConfigFileManager;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -150,25 +148,8 @@ public class ArenaMain extends JavaPlugin {
 
 		   this.init(); //Fait Appel à une méthode pour bien intialiser le Plugin
 
-		   pm.registerEvents(new GPlayerListener(this), this); //Création des évenements du joueurs
-		   pm.registerEvents(new GInventoryListener(this), this); //Création des évenements du joueurs
-		   pm.registerEvents(new GDamageListener(this), this); //Création des évenements quand il ya des dégats
-
-		   this.getCommand("arenareload").setExecutor((CommandExecutor)new ReloadCommand(this)); //Commande pour recharger le plugin
-		   this.getCommand("arenarl").setExecutor((CommandExecutor)new ReloadCommand(this)); //Autre commande 'alias' pour recharger le plugin
-
-
-		   this.getCommand("enablegame").setExecutor((CommandExecutor)new EnableGameCommand(this)); //Commande pour activer le mini-jeux
-		   this.getCommand("setlobby").setExecutor((CommandExecutor)new SetLobbyCommand(this)); //Commande pour la création du point de spawn lobby
-		   this.getCommand("setzonegame").setExecutor((CommandExecutor)new SetZoneGameCommand(this)); //Commande pour la création de la zone de jeu de l'arêne
-		   /*this.getCommand("setgame").setExecutor((CommandExecutor)new SetGameCommand(this)); //Commande pour la création du point de spawn de l'arêne*/
-
-		   this.getCommand("listlobby").setExecutor((CommandExecutor)new ListLobbyCommand(this)); //Commande pour afficher la liste des points de spawn lobby
-
-		   this.getCommand("disablegame").setExecutor((CommandExecutor)new DisableGameCommand(this)); //Commande pour désactiver le mini-jeux
-		   this.getCommand("unsetlobby").setExecutor((CommandExecutor)new UnSetLobbyCommand(this)); //Commande pour l'annulation du point de spawn lobby
-		   this.getCommand("unsetzonegame").setExecutor((CommandExecutor)new UnSetZoneGameCommand(this)); //Commande pour l'annulation de la zone de jeu de l'arêne
-		   /*this.getCommand("unsetgame").setExecutor((CommandExecutor)new UnSetGameCommand(this)); //Commande pour l'annulation du point de spawn de l'arêne*/
+		   RegisterEvents.init(this, pm); // Initialise les évènements
+		   RegisterCommands.init(this); // Initialise les commandes
 
 		   console.sendMessage(prefix + ChatColor.GREEN + "ArenaGame Enabled"); //Message disant que le plugin est activé
 		   manager.randomSpawn();
