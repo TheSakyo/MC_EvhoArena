@@ -157,10 +157,7 @@ public class ArenaManager {
 			String randomKey = String.valueOf(keys[new Random().nextInt(keys.length)]);
 			this.spawnLobby.putIfAbsent(randomKey, locationMap.get(randomKey));
 
-			// DEBUG //
-			main.console.sendMessage(randomKey);
-			main.console.sendMessage(this.spawnLobby.get(randomKey).toString());
-			// DEBUG //
+						/* -------------------------------------------------------------------- */
 
 			return this.spawnLobby;
 		}
