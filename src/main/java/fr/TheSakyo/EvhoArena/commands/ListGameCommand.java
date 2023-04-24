@@ -54,10 +54,6 @@ public class ListGameCommand implements CommandExecutor {
                 ConfigurationSection keysZone = ConfigFile.getConfigurationSection(main.config, "game");
                 for(String gameZone : keysZone.getKeys(false)) {
 
-                    if(!ZoneManager.hasRegion(gameZone)) throw new NullPointerException("Zone '" + gameZone + "' doesn't have region !");
-
-                         /* --------------------------------------------- */
-
                     String gameName = ChatColor.GOLD.toString() + ChatColor.BOLD.toString() + gameZone;
                     sender.sendMessage(" ");
 
@@ -65,12 +61,23 @@ public class ListGameCommand implements CommandExecutor {
 
                         Component componentName = CustomMethod.StringToComponent(gameName);
 
-                        if(p.getWorld() == Bukkit.getServer().getWorld("evhogame")) {
+                        if(ZoneManager.hasRegion(gameZone)) {
 
-                            componentName = componentName.clickEvent(ClickEvent.runCommand("/zone teleport " + ChatColor.stripColor(gameName)));
-                            componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Cliquez pour vous y téléporter")));
+                                            /* ---------------------------------------------------- */
 
-                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.RED + "Vous pouvez vous téléporter que si vous ête dans le monde 'evhogame'"))); }
+                            if(p.getWorld() == Bukkit.getServer().getWorld("evhogame")) {
+
+                                componentName = componentName.clickEvent(ClickEvent.runCommand("/zone teleport " + ChatColor.stripColor(gameName)));
+                                componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Cliquez pour vous y téléporter")));
+
+                            } else {
+
+                                componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.RED + "Vous pouvez vous téléporter que si vous êtes dans le monde 'evhogame'")));
+                            }
+
+                                            /* ---------------------------------------------------- */
+
+                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.RED + "La zone n'a aucune région pour le moment"))); }
 
                             /* --------------------------------------------- */
 

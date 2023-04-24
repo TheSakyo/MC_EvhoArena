@@ -73,7 +73,7 @@ public class ListLobbyCommand implements CommandExecutor {
                             componentName = componentName.clickEvent(ClickEvent.runCommand("/tp " + String.valueOf(x) + " " + String.valueOf(y) +  " " + String.valueOf(z)));
                             componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Cliquez pour vous y téléporter")));
 
-                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.RED + "Vous pouvez vous téléporter que si vous ête dans le monde 'evholobby'"))); }
+                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.RED + "Vous pouvez vous téléporter que si vous êtes dans le monde 'evholobby'"))); }
 
                             /* --------------------------------------------- */
 
