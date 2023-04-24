@@ -54,13 +54,7 @@ public class ListGameCommand implements CommandExecutor {
                 ConfigurationSection keysZone = ConfigFile.getConfigurationSection(main.config, "game");
                 for(String gameZone : keysZone.getKeys(false)) {
 
-                    double x = ConfigFile.getDouble(main.config, "game." + gameZone + ".X");
-                    double y = ConfigFile.getDouble(main.config, "game." + gameZone + ".Y");
-                    double z = ConfigFile.getDouble(main.config, "game." + gameZone + ".Z");
-                    float yaw = Float.parseFloat(ConfigFile.getString(main.config, "game." + gameZone + ".Yaw"));
-                    float pitch = Float.parseFloat(ConfigFile.getString(main.config, "game." + gameZone + ".Pitch"));
-
-                    /* --------------------------------------------- */
+                         /* --------------------------------------------- */
 
                     String gameName = ChatColor.GOLD.toString() + ChatColor.BOLD.toString() + gameZone;
                     sender.sendMessage(" ");
@@ -71,22 +65,22 @@ public class ListGameCommand implements CommandExecutor {
 
                         if(p.getWorld() == Bukkit.getServer().getWorld("evhogame")) {
 
-                            componentName = componentName.clickEvent(ClickEvent.runCommand("/tp " + String.valueOf(x) + " " + String.valueOf(y) +  " " + String.valueOf(z)));
+                            componentName = componentName.clickEvent(ClickEvent.runCommand("/zone teleport " + gameName));
                             componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Cliquez pour vous y téléporter")));
 
                         } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatColor.GRAY + "Vous pouvez vous téléporter que si vous ête dans le monde 'evhogame'"))); }
 
                             /* --------------------------------------------- */
 
-                        sender.sendMessage(ChatColor.WHITE + "- " + componentName);
+                        sender.sendMessage(CustomMethod.StringToComponent(ChatColor.WHITE + "- ").append(componentName));
 
                     } else { sender.sendMessage(ChatColor.WHITE + "- " + gameName); }
                 }
 
-            } catch(Exception e) { sender.sendMessage(main.prefix + ChatColor.RED + "Il y a aucun point de spawn lobby actuellement !");  }
+            } catch(Exception e) { sender.sendMessage(main.prefix + ChatColor.RED + "Il y a aucune arêne(s) de jeu(x) actuellement !");  }
             return true;
 
-        } else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /listlobby"); }
+        } else if(args.length != 0) { sender.sendMessage(main.prefix + ChatColor.RED + "Essayez /listgame"); }
 
         return false;
 

@@ -77,7 +77,7 @@ public class ListLobbyCommand implements CommandExecutor {
 
                             /* --------------------------------------------- */
 
-                        sender.sendMessage(ChatColor.WHITE + "- " + componentName);
+                        sender.sendMessage(CustomMethod.StringToComponent(ChatColor.WHITE + "- ").append(componentName));
 
                     } else { sender.sendMessage(ChatColor.WHITE + "- " + gameName); }
                 }
