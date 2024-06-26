@@ -341,7 +341,6 @@ public class ArenaManager {
 		out.writeUTF(UtilityMain.getInstance().hubs.get(r.nextInt(UtilityMain.getInstance().hubs.size())));
 
 		p.getServer().sendPluginMessage(main, "BungeeCord", out.toByteArray());
-
 	}
 	// Petite Méthode (Bungee) pour connecter un joueur vers un autre serveur //
 
