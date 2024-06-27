@@ -127,8 +127,8 @@ public class ArenaManager {
 
 				for(String gameZone : keysZone.getKeys(false)) {
 
-					String worldKey = "lobby." + gameZone + ".World";
-					Location resultLocation = new Location(Bukkit.getServer().getWorld(worldKey), 0, 0, 0);
+					String worldName = ConfigFile.getString(main.config, "lobby." + gameZone + ".World");
+					Location resultLocation = new Location(Bukkit.getServer().getWorld(worldName), 0, 0, 0);
 
 										/* ----------------------------------------- */
 
