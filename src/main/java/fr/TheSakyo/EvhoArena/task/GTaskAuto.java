@@ -108,9 +108,10 @@ public class GTaskAuto extends BukkitRunnable {
 								/* -------------------------------------------------------  */
 
 					Random r = new Random(); //Variable pour random
+					String lobbyName = main.manager.getSpawnLobby().getName();
 
-					Location firstPos = ZoneManager.getFirstLocationPos("game"); // Récupère la première position de la zone de jeu
-					Location secondPos = ZoneManager.getSecondLocationPos("game"); // Récupère la deuxième position de la zone de jeu
+					Location firstPos = ZoneManager.getFirstLocationPos(lobbyName); // Récupère la première position de la zone de jeu
+					Location secondPos = ZoneManager.getSecondLocationPos(lobbyName); // Récupère la deuxième position de la zone de jeu
 
 					Location location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
 

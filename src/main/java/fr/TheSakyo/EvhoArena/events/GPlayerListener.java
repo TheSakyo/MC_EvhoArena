@@ -67,9 +67,12 @@ public class GPlayerListener implements Listener {
 		// ** ⬇️ Essaye de vérifier si le spawn lobby est définit pour téléporter le joueur où il faut ⬇️ ** //
 		try {
 
-			String locname = String.valueOf(main.manager.randomSpawn().keySet().toArray()[0]);
-			loclobby = main.manager.randomSpawn().get(locname);
+			loclobby = main.manager.getSpawnLobby().getLocation();
+			if(loclobby == null) {
 
+				String locname = String.valueOf(main.manager.randomSpawn().keySet().toArray()[0]);
+				loclobby = main.manager.randomSpawn().get(locname);
+			}
 						/* ------------------------------------------------------ */
 						/* ------------------------------------------------------ */
 

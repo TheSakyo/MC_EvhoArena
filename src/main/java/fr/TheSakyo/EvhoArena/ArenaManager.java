@@ -8,6 +8,7 @@ import java.util.*;
 import com.google.common.collect.Iterables;
 import fr.TheSakyo.EvhoArena.enums.GOver;
 import fr.TheSakyo.EvhoArena.enums.GState;
+import fr.TheSakyo.EvhoArena.types.Lobby;
 import fr.TheSakyo.EvhoUtility.UtilityMain;
 import fr.TheSakyo.EvhoUtility.config.ConfigFile;
 import fr.TheSakyo.EvhoUtility.utils.custom.CustomMethod;
@@ -43,8 +44,13 @@ public class ArenaManager {
 	// On vérifie si le jeux est désactivé //
 
 
+	// Liste de spawn lobby avec le nom de sa zone associé //
+	Map<String, Location> spawnsLobby = new HashMap<String, Location>();
+	// Liste de spawn lobby avec le nom de sa zone associé //
+
+
 	// On récupère un spawn lobby aléatoire avec le nom de sa zone associé //
-	Map<String, Location> spawnLobby = new HashMap<String, Location>();
+	Lobby spawnLobby = null;
 	// On récupère un spawn lobby aléatoire avec le nom de sa zone associé //
 
 
@@ -88,6 +94,10 @@ public class ArenaManager {
 		this.games.remove(zoneNameOfGame);
 	}
 
+	/********************************************/
+
+	public Lobby getSpawnLobby() { return spawnLobby; }
+
 	/**********************************************************************/
 	/* PARTIE RÉCUPÉRATION/AJOUT/SUPPRESSION DES ZONES DE JEUX EXISTANTES */
 	/**********************************************************************/
@@ -119,7 +129,7 @@ public class ArenaManager {
 							/* -------------------------------------------------- */
 							/* -------------------------------------------------- */
 
-		if(this.spawnLobby != null && !this.spawnLobby.isEmpty()) { return this.spawnLobby; }
+		if(this.spawnsLobby != null && !this.spawnsLobby.isEmpty()) { return this.spawnsLobby; }
 		else {
 
 			ConfigurationSection keysZone = ConfigFile.getConfigurationSection(main.config, "lobby");
@@ -156,11 +166,12 @@ public class ArenaManager {
 
 			Object[] keys = locationMap.keySet().toArray();
 			String randomKey = String.valueOf(keys[new Random().nextInt(keys.length)]);
-			this.spawnLobby.putIfAbsent(randomKey, locationMap.get(randomKey));
+			this.spawnsLobby.putIfAbsent(randomKey, locationMap.get(randomKey));
+			this.spawnLobby = new Lobby(locationMap.get(randomKey), randomKey);
 
 						/* -------------------------------------------------------------------- */
 
-			return this.spawnLobby;
+			return this.spawnsLobby;
 		}
 	}
 	// Récupère des spawns de façon 'random' pour les équipes //
