@@ -36,7 +36,7 @@ public class SetGameCommand implements CommandExecutor {
 
 			if(p.hasPermission("evhoarena.game")) {
 				
-				if(args.length == 1) {
+				if(args.length == 2) {
 
 					String name = args[0].replaceAll("[^a-zA-Z0-9]", ""); // Récupère le nom de la zone
 
@@ -118,7 +118,7 @@ public class SetGameCommand implements CommandExecutor {
 
 					} else { Bukkit.getServer().dispatchCommand(sender, "setgame"); return true; }
 
-				} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /setgame <zoneName>"); }
+				} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Essayez /setgame <zoneName> <red | blue>"); }
 
 			} else { p.sendMessage(main.prefix + ChatFormatting.RED + "Vous n'avez pas les permissions requises !"); }
 
