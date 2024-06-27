@@ -8,6 +8,7 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.minecraft.ChatFormatting;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -53,6 +54,7 @@ public class ListLobbyCommand implements CommandExecutor {
 				ConfigurationSection keysZone = ConfigFile.getConfigurationSection(main.config, "lobby");
                 for(String lobbyZone : keysZone.getKeys(false)) {
 
+					World world = Bukkit.getServer().getWorld(ConfigFile.getString(main.config, "lobby." + lobbyZone + ".World"));
 					double x = ConfigFile.getDouble(main.config, "lobby." + lobbyZone + ".X");
 					double y = ConfigFile.getDouble(main.config, "lobby." + lobbyZone + ".Y");
 					double z = ConfigFile.getDouble(main.config, "lobby." + lobbyZone + ".Z");
@@ -68,12 +70,12 @@ public class ListLobbyCommand implements CommandExecutor {
 
                         Component componentName = CustomMethod.StringToComponent(gameName);
 
-                        if(p.getWorld() == Bukkit.getServer().getWorld("evholobby")) {
+                        if(p.getWorld() == world) {
 
                             componentName = componentName.clickEvent(ClickEvent.runCommand("/tp " + String.valueOf(x) + " " + String.valueOf(y) +  " " + String.valueOf(z)));
                             componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatFormatting.GRAY + "Cliquez pour vous y téléporter")));
 
-                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatFormatting.RED + "Vous pouvez vous téléporter que si vous êtes dans le monde 'evholobby'"))); }
+                        } else { componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatFormatting.RED + "Vous pouvez vous téléporter que si vous êtes dans le monde '" + world.getName() + "'"))); }
 
                             /* --------------------------------------------- */
 
