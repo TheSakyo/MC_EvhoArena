@@ -127,7 +127,8 @@ public class ArenaManager {
 
 				for(String gameZone : keysZone.getKeys(false)) {
 
-					Location resultLocation = new Location(Bukkit.getServer().getWorld("evholobby"), 0, 0, 0);
+					String worldKey = "lobby." + gameZone + ".World";
+					Location resultLocation = new Location(Bukkit.getServer().getWorld(worldKey), 0, 0, 0);
 
 										/* ----------------------------------------- */
 
@@ -139,11 +140,11 @@ public class ArenaManager {
 
 										/* ----------------------------------------- */
 
-					if(ConfigFile.contains(main.config, xKey)) { resultLocation.setX(ConfigFile.getDouble(main.config, xKey)); }
-					if(ConfigFile.contains(main.config, yKey)) { resultLocation.setY(ConfigFile.getDouble(main.config, yKey)); }
-					if(ConfigFile.contains(main.config, zKey)) { resultLocation.setZ(ConfigFile.getDouble(main.config, zKey)); }
-					if(ConfigFile.contains(main.config, xKey)) { resultLocation.setYaw(Float.parseFloat(ConfigFile.getString(main.config, yawKey))); }
-					if(ConfigFile.contains(main.config, xKey)) { resultLocation.setPitch(Float.parseFloat(ConfigFile.getString(main.config, pitchKey))); }
+					if(ConfigFile.contains(main.config, xKey)) resultLocation.setX(ConfigFile.getDouble(main.config, xKey));
+					if(ConfigFile.contains(main.config, yKey)) resultLocation.setY(ConfigFile.getDouble(main.config, yKey));
+					if(ConfigFile.contains(main.config, zKey)) resultLocation.setZ(ConfigFile.getDouble(main.config, zKey));
+					if(ConfigFile.contains(main.config, xKey)) resultLocation.setYaw(Float.parseFloat(ConfigFile.getString(main.config, yawKey)));
+					if(ConfigFile.contains(main.config, xKey)) resultLocation.setPitch(Float.parseFloat(ConfigFile.getString(main.config, pitchKey)));
 
 										/* ----------------------------------------- */
 
