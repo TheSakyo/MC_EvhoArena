@@ -57,15 +57,15 @@ public class ListGameCommand implements CommandExecutor {
                     String gameName = ChatFormatting.GOLD.toString() + ChatFormatting.BOLD.toString() + gameZone;
                     sender.sendMessage(" ");
 
-                    if(sender instanceof Player p) {
+                    if (sender instanceof Player p) {
 
                         Component componentName = CustomMethod.StringToComponent(gameName);
 
-                        if(ZoneManager.hasRegion(gameZone)) {
+                        if (ZoneManager.hasRegion(gameZone)) {
 
-                                            /* ---------------------------------------------------- */
+                            /* ---------------------------------------------------- */
 
-                            if(p.getWorld() == Bukkit.getServer().getWorld("evhogame")) {
+                            if (p.getWorld() == Bukkit.getServer().getWorld("evhogame")) {
 
                                 componentName = componentName.clickEvent(ClickEvent.runCommand("/zone teleport " + ChatFormatting.stripFormatting(gameName)));
                                 componentName = componentName.hoverEvent(HoverEvent.showText(CustomMethod.StringToComponent(ChatFormatting.GRAY + "Cliquez pour vous y téléporter")));

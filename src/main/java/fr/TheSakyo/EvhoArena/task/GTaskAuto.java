@@ -114,22 +114,8 @@ public class GTaskAuto extends BukkitRunnable {
 					Location secondPos = ZoneManager.getSecondLocationPos(lobbyName); // Récupère la deuxième position de la zone de jeu
 
 					Location location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
-
-					if(location != null) {
-
-						boolean hasNoAir = false; // Vérifiera si la liste des localisations contiendra pas de l'air
-
-						// On boucle on vérifie tant que il y'a de l'air dans la liste des localisations récupéré, alors on redéfinit la liste avec une nouvelle localisation aléatoire
-						while(!hasNoAir) {
-
-							location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
-							List<Location> aroundLoc = CustomMethod.getNearbyLocations(location, 2, false); // On récupère une liste de localisations autour d'une autre localisation précisée
-
-							// Vérifie si les localisations contienne pas d'air
-							hasNoAir = aroundLoc.stream().allMatch(loc -> loc.getBlock().getType() != Material.AIR) && location.getBlock().getType() != Material.AIR;
-						}
-					}
-
+					Location centerZone = ZoneManager.getCenterRegion(lobbyName); // Récupère le centre de la zone du mini-jeux
+					location.setY(centerZone.getY()); // Définit à la localisation récupéré aléatoirement la valeur Y de la localisation du centre de la zone du mini-jeux
 					spawn = location; // Définit le spawn où le joueur sera téléporté
 
 										/* -------------------------------------------- */
