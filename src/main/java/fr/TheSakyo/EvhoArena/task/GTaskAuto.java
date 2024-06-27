@@ -125,6 +125,7 @@ public class GTaskAuto extends BukkitRunnable {
 						while(!hasNoAir) {
 
 							location = CustomMethod.getRandomLocation(firstPos, secondPos); // On récupère une localisation aléatoire entre deux coordonée précisée
+							location.setY(centerZone.getY()); // Définit à la localisation récupéré aléatoirement la valeur Y de la localisation du centre de la zone du mini-jeux
 							List<Location> aroundLoc = CustomMethod.getNearbyLocations(location, 2, false); // On récupère une liste de localisations autour d'une autre localisation précisée
 
 							// Vérifie si les localisations contienne pas d'air
